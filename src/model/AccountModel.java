@@ -10,7 +10,9 @@ import java.util.List;
 import java.util.Map;
 import java.sql.*;
 public class AccountModel {
-	private String pass = "anshgarg@123";
+
+	private String pass = "";
+
 	
 	public boolean login(String username, String password)
 	{
@@ -120,7 +122,7 @@ public class AccountModel {
 		//add data to patients table
 		String dob = "";
 		try{
-			String query = "insert into patients(name,age,gender,dob,mstatus,bgroup,nationality,address,uid,allergies,uname,password,email,phone) values('" + name + "','" + age + "','" + gender + "','" + dob + "','" + mstatus + "','" + bgroup + "','" + nationality + "','" + address + "','" + uid + "','" + allergies + "','" + uname + "','" + password + "','" + email + "','" + phone + "')" ;
+			String query = "insert into patients(name,age,gender,dob,mstatus,bgroup,nationality,address,uid,allergies,uname,password,email,phone) values('" + name + "'," + age + ",'" + gender + "','" + dob + "','" + mstatus + "','" + bgroup + "','" + nationality + "','" + address + "','" + uid + "','" + allergies + "','" + uname + "','" + password + "','" + email + "','" + phone + "')" ;
 			Class.forName("com.mysql.jdbc.Driver");     
 			System.out.println(query);
 			Connection con = DriverManager.getConnection( "jdbc:mysql://localhost:3306/HMS","root",pass);  
@@ -149,6 +151,25 @@ public class AccountModel {
 			System.out.println(e);  
 		}
 	}
+        
+        public void updateDetails(String name,String age,String gender,String mstatus,String bgroup,String nationality,String address,String uid,String allergies,String uname,String password,String email,String phone)
+	{
+		//add data to patients table
+		String dob = "";
+		try{
+			String query = "update patients set name = '"+name+"',age = "+age+",gender = '"+gender+"',mstatus = '"+mstatus+"',bgroup = '"+bgroup+"',nationality = '"+nationality+"',address = '"+address+"',uid = '"+uid+"',allergies = '"+allergies+"',email = '"+email+"',phone = '"+phone+"' where uname = '"+uname+"';";
+			Class.forName("com.mysql.jdbc.Driver");     
+			System.out.println(query);
+			Connection con = DriverManager.getConnection( "jdbc:mysql://localhost:3306/HMS","root",pass);  
+			PreparedStatement stmt = con.prepareStatement(query);  
+			stmt.executeUpdate();
+			con.close();
+		}
+		catch(Exception e)
+		{  
+			System.out.println(e);  
+		}
+        }
 	
 	public String getcategory(String username)
 	{
@@ -215,6 +236,33 @@ public class AccountModel {
 			while(rs.next())
 			{
 				tmp = rs.getString(1);
+				list.add(tmp);
+			}
+			con.close();
+			
+		}
+		catch(Exception e)
+		{  
+			System.out.println(e);  
+		}
+		return list;
+	}
+        public ArrayList<String> getPatientDetails(String username)
+	{
+		ArrayList<String> list = new ArrayList<String>();
+		String tmp = "";
+		String query = "select * from patients where uname='"+username+"'";
+		System.out.println(query);
+		try{  
+			Class.forName("com.mysql.jdbc.Driver");     
+			Connection con = DriverManager.getConnection( "jdbc:mysql://localhost:3306/HMS","root",pass);  
+			PreparedStatement stmt = con.prepareStatement(query);  
+			ResultSet rs = stmt.executeQuery();
+			System.out.println(rs);
+                        rs.next();
+			for(int i=1;i<=15;i++)
+			{
+				tmp = rs.getString(i);
 				list.add(tmp);
 			}
 			con.close();

@@ -663,7 +663,41 @@ public class AccountController {
 		this.deptlist = accountModel.getDeptlist();
 		System.out.println(this.deptlist);
 	}
+        
+        /*
+        * Used in edit profile to load the data from db intitally for patient...
+        */
+        public void loadProfile()
+	{
+                AccountModel accountModel = new AccountModel();
+                ArrayList<String> arr = accountModel.getPatientDetails(this.account.getUsername());
+                String[] parts = arr.get(1).split(" ");
+                this.title = parts[0];
+                this.fname = parts[1];
+                this.lname = parts[2];
+                
+                this.age = arr.get(2);
+                this.gender = arr.get(3);
+                this.maritalstatus = arr.get(5);
+                this.bloodgroup = arr.get(6);
+                this.nationality = arr.get(7);
+                this.address = arr.get(8);
+                this.uid = arr.get(9);
+                this.allergies = arr.get(10);
+                this.susername = arr.get(11);
+                this.spass = this.spassre = arr.get(12);
+                this.semail = arr.get(13);
+                this.sphone = arr.get(14);
+	}
 	
+        public void updateDetails()
+	{
+                AccountModel accountModel = new AccountModel();
+		String name = this.title + " " + this.fname + " " + this.lname;
+                accountModel.updateDetails(name, this.age,this.gender,this.maritalstatus,this.bloodgroup,this.nationality,this.address,this.uid,this.allergies,this.susername,this.spass,this.semail,this.sphone);
+				
+		
+	}
 	
 	public void loadappointments()
 	{
