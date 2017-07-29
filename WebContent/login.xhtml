@@ -4,7 +4,8 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"  
 	  xmlns:f="http://xmlns.jcp.org/jsf/core"
-	  xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+	  xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+	  xmlns:p="http://primefaces.org/ui">
 <h:head>
   <title>HMS - Login</title>
   <script type="text/javascript">
@@ -135,7 +136,7 @@
   	<f:event listener="#{AccountController.verifyLogin()}" type="preRenderView"></f:event>
   </f:metadata>
   <f:facet name="middle">
-            <h:outputStylesheet name="bootstrap/css/bootstrap.css" />
+            <h:outputStylesheet name="bootstrap/css/bootstrap.flatly.css" />
             
             <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js" />
             
@@ -144,10 +145,7 @@
 </h:head>
 
 	<h:body>
-		<p style="color:red">
-			#{AccountController.errorMessage}
-			<h:messages style="color:red;margin:8px;" /> 
-		</p>
+	<!-- 	<ui:include src="/header.xhtml" /> -->
 		<div class="container">
     	<div class="row">
 			<div class="col-md-6 col-md-offset-3">
@@ -184,37 +182,107 @@
 											</div>
 										</div>
 									</div>
+								</h:form>
+								<h:form id="register-form" style="display: none;">
 									<div class="form-group">
 										<div class="row">
-											<div class="col-lg-12">
-												<div class="text-center">
-													<a href="https://phpoll.com/recover" tabindex="5" class="forgot-password">Forgot Password?</a>
-												</div>
+											<div class="col-sm-3">
+												<h:selectOneMenu value = "#{AccountController.title}" class="form-control"> 
+									  				<f:selectItem itemValue = "Mr." itemLabel = "Mr." /> 
+									   				<f:selectItem itemValue = "Mrs." itemLabel = "Mrs." /> 
+									   				<f:selectItem itemValue = "Ms." itemLabel = "Ms." /> 
+												</h:selectOneMenu> 
+											</div>
+											<div class="col-sm-4">
+												<h:inputText value = "#{AccountController.fname}" class="form-control" a:placeholder="First Name" required="true" requiredMessage="First name is required"></h:inputText>
+											</div>
+											<div class="col-sm-5">
+												<h:inputText value = "#{AccountController.lname}" class="form-control" a:placeholder="Last Name" required="true" requiredMessage="Last Name is required"></h:inputText>
 											</div>
 										</div>
 									</div>
-								</h:form>
-								<form id="register-form" action="https://phpoll.com/register/process" method="post" role="form" style="display: none;">
 									<div class="form-group">
-										<input type="text" name="username" id="username" tabindex="1" class="form-control" placeholder="Username" value="" />
+										<div class="row">
+											<div class="col-sm-12">
+												<h:selectOneMenu value = "#{AccountController.gender}" class="form-control" required="true" requiredMessage="Gender is required"> 
+									  				<f:selectItem itemValue = "Male" itemLabel = "Male" /> 
+									   				<f:selectItem itemValue = "Female" itemLabel = "Female" /> 
+									   				<f:selectItem itemValue = "Other" itemLabel = "Other" /> 
+												</h:selectOneMenu> 
+											</div>
+										</div>
 									</div>
 									<div class="form-group">
-										<input type="email" name="email" id="email" tabindex="1" class="form-control" placeholder="Email Address" value="" />
+										<div class="row">
+											<div class="col-sm-12">
+												<h:outputText for="dob" value="Date of Birth : " />
+        										<p:calendar id="dob" value="#{AccountController.dob}" showOn="button" locale="en" navigator="true" pattern="yyyy-MMM-dd" required="true" requiredMessage="DOB is required"/>
+											</div>
+										</div>
+									</div>
+								
+									<div class="form-group">
+										<h:inputText value = "#{AccountController.age}" class="form-control" a:placeholder="Age" required="true" requiredMessage="Age is required"></h:inputText>
 									</div>
 									<div class="form-group">
-										<input type="password" name="password" id="password" tabindex="2" class="form-control" placeholder="Password" />
+										<div class="row">
+											<div class="col-sm-12">
+												<h:selectOneMenu value = "#{AccountController.maritalstatus}" class="form-control" required="true" requiredMessage="Maritial is required"> 
+									  				<f:selectItem itemValue = "Married" itemLabel = "Married" /> 
+									   				<f:selectItem itemValue = "Unmarried" itemLabel = "Unmarried" /> 
+									   				<f:selectItem itemValue = "Divorced" itemLabel = "Divorced" /> 
+									   				<f:selectItem itemValue = "Widowed" itemLabel = "Widowed" /> 
+												</h:selectOneMenu>  
+											</div>
+										</div>
 									</div>
 									<div class="form-group">
-										<input type="password" name="confirm-password" id="confirm-password" tabindex="2" class="form-control" placeholder="Confirm Password" />
+										<h:inputText value = "#{AccountController.bloodgroup}" class="form-control" a:placeholder="Blood Group" required="true" requiredMessage="Blood group is required"></h:inputText>
+									</div>
+									<div class="form-group">
+										<div class="row">
+											<div class="col-sm-12">
+												<h:selectOneMenu value = "#{AccountController.nationality}" class="form-control"> 
+									  				<f:selectItem itemValue = "Indian" itemLabel = "Indian" /> 
+									   				<f:selectItem itemValue = "Unmarried" itemLabel = "Unmarried" /> 
+									   				<f:selectItem itemValue = "Indonesian" itemLabel = "Indonesian" /> 
+									   				<f:selectItem itemValue = "Japanese" itemLabel = "Japanese" /> 
+												</h:selectOneMenu>
+											</div>
+										</div>
+									</div>
+									<div class="form-group">
+										<h:inputText value = "#{AccountController.address}" class="form-control" a:placeholder="Address" required="true" requiredMessage="Address is required"></h:inputText>
+									</div>
+									<div class="form-group">
+										<h:inputText value = "#{AccountController.uid}" class="form-control" a:placeholder="UID number" required="true" requiredMessage="UID is required"></h:inputText>
+									</div>
+									<div class="form-group">
+										<h:inputText value = "#{AccountController.allergies}" class="form-control" a:placeholder="Allergies (optional)"></h:inputText>
+									</div>
+									<div class="form-group">
+										<h:inputText value = "#{AccountController.susername}" name="username" id="username" tabindex="1" class="form-control" a:placeholder="Username" required="true" requiredMessage="Username is required"></h:inputText>
+									</div>
+									<div class="form-group">
+										<h:inputText value = "#{AccountController.semail}" name="email" id="email" tabindex="1" class="form-control" a:placeholder="Email" required="true" requiredMessage="Email is required" validatorMessage="Email is not valid"><f:validateRegex pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]" /></h:inputText>
+									</div>
+									<div class="form-group">
+										<h:inputText value = "#{AccountController.sphone}" class="form-control" a:placeholder="Mobile" required="true" requiredMessage="Mobile number is required" validatorMessage="Mobile number is not valid" a:maxlength="10"><f:validateRegex pattern="^[0-9]{10}$" /></h:inputText>
+									</div>
+									<div class="form-group">
+										<h:inputSecret value = "#{AccountController.spass}" name="password" id="password" tabindex="2" class="form-control" a:placeholder="Password" required="true" requiredMessage="Password is required"></h:inputSecret>
+									</div>
+									<div class="form-group">
+										<h:inputSecret value = "#{AccountController.spassre}" name="confirm-password" id="confirm-password" tabindex="2" class="form-control" a:placeholder="Re-enter Password" required="true" requiredMessage="Re enter Password is required"></h:inputSecret>
 									</div>
 									<div class="form-group">
 										<div class="row">
 											<div class="col-sm-6 col-sm-offset-3">
-												<input type="submit" name="register-submit" id="register-submit" tabindex="4" class="form-control btn btn-register" value="Register Now" />
+												<h:commandButton name="register-submit" id="register-submit" tabindex="4" class="form-control btn btn-register" value="Register Now" action="#{AccountController.signup()}"></h:commandButton>
 											</div>
 										</div>
 									</div>
-								</form>
+								</h:form>
 							</div>
 						</div>
 					</div>
@@ -222,6 +290,10 @@
 			</div>
 		</div>
 	</div>
+		<p style="color:red">
+			#{AccountController.errorMessage}
+			<h:messages style="color:red;text-align:center" /> 
+		</p>
 	</h:body>
 
 </html>
