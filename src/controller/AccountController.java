@@ -37,6 +37,7 @@ public class AccountController {
 	private Account account = new Account();
 	private boolean remember;
 	public String errorMessage;
+	public String errorMessage2;
 	public String title;
 	public String fname;
 	public String mname;
@@ -55,7 +56,7 @@ public class AccountController {
 	public String spassre;
 	public String semail;
 	public String sphone;
-	
+	public String parasquerystring;
 	
 	
 	
@@ -69,6 +70,22 @@ public class AccountController {
 	
 	public String getErrorMessage() {
 		return errorMessage;
+	}
+
+	public String getErrorMessage2() {
+		return errorMessage2;
+	}
+
+	public void setErrorMessage2(String errorMessage2) {
+		this.errorMessage2 = errorMessage2;
+	}
+
+	public String getParasquerystring() {
+		return parasquerystring;
+	}
+
+	public void setParasquerystring(String parasquerystring) {
+		this.parasquerystring = parasquerystring;
 	}
 
 	public String getSphone() {
@@ -417,10 +434,148 @@ public class AccountController {
 		}
 		return account;
 	}
+	public void clearerrors()
+	{
+		
+	}
+	
 	
 	public void signup()
 	{
+
+		AccountModel accountModel = new AccountModel();
+		String pass1 = this.spass;
+		String pass2 = this.spassre;
+		//check if username exists already
+		if(accountModel.checkusernameredundancy(this.susername))
+		{
+			FacesContext.getCurrentInstance().addMessage("form:password", new FacesMessage("Username already in use", "Username already in use"));
+		}
+		//check if email already exists
+		/*
+		 * 		1
+		 * 
+		 */
+		/*else if(accountModel.checkemailalreadyused(this.semail))
+		{
+			FacesContext.getCurrentInstance().addMessage("form:password", new FacesMessage("E-mail already in use", "E-mail already in use"));
+		}*/
+		else
+		{
+			//check if password is same
+			if(pass1.equals(pass2))
+			{
+				//add entry to database
+				String name = this.title + " " + this.fname + " " + this.lname;
+				accountModel.signup(name, this.age,this.gender,this.maritalstatus,this.bloodgroup,this.nationality,this.address,this.uid,this.allergies,this.susername,this.spass,this.semail,this.sphone);
+				//send email verification link
+				String msg = "Hi " + name + "!\n\n" + "Please click the below link to verify your account : \n";
+				HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+				String url = request.getRequestURL().toString() ;
+				url = url.substring(0, url.length() - 12)  + "/verify.xhtml";
+				String username = this.susername;
+				//hash username
+				try{
+				String text = username;
+				String key = "Bar12345Bar12345";
+				Key aesKey = new SecretKeySpec(key.getBytes(), "AES");
+				Cipher cipher = Cipher.getInstance("AES");
+				cipher.init(Cipher.ENCRYPT_MODE, aesKey);
+				byte[] encrypted = cipher.doFinal(text.getBytes());
+				Base64.Encoder encoder = Base64.getEncoder();
+				String encryptedString = encoder.encodeToString(encrypted);
+				System.out.println(encryptedString);
+				username = encryptedString;
+				}catch(Exception e)
+				{
+					System.out.println(e);
+				}
+				
+				
+				url = url + "?user=" + username;
+				System.out.println(url);
+				msg = msg + url;
+				String from = "hmsinfosyshackathon@gmail.com";
+				 String password = "hmsinfosys";
+				 String to = this.semail;
+				 String sub = "Account Verification";
+				Properties props = new Properties();    
+		         props.put("mail.smtp.host", "smtp.gmail.com");    
+		         props.put("mail.smtp.socketFactory.port", "465");    
+		         props.put("mail.smtp.socketFactory.class",    
+		                   "javax.net.ssl.SSLSocketFactory");    
+		         props.put("mail.smtp.auth", "true");   
+		         props.put("mail.smtp.port", "465");    
+		         //get Session   
+		         Session session = Session.getDefaultInstance(props,    
+		          new javax.mail.Authenticator() {    
+		          protected PasswordAuthentication getPasswordAuthentication() {    
+		          return new PasswordAuthentication(from,password);  
+		          }    
+		         });    
+		         //compose message    
+		         try {    
+		          MimeMessage message = new MimeMessage(session);    
+		          message.addRecipient(Message.RecipientType.TO,new InternetAddress(to));    
+		          message.setSubject(sub);    
+		          message.setText(msg);    
+		          //send message  
+		          Transport.send(message);    
+		          System.out.println("message sent successfully");    
+		         } catch (MessagingException e) {throw new RuntimeException(e);} 
+				
+				
+				this.account.setUsername(this.susername);
+				this.account.setPassword(this.spass);
+				this.login();
+				
+				
+			}
+			else
+			{
+				FacesContext.getCurrentInstance().addMessage("form:password", new FacesMessage("Passwords don't match", "Passwords don't match"));
+			}
+		}
+	}
+	
+	public void verifyuseraccount()
+	{
+		System.out.println(FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("user"));
+		//verify this user
+		String encryptedString = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("user");
+		if(encryptedString.contains(" "))
+		{
+			System.out.println("hi");
+			encryptedString = encryptedString.replace(" ", "+");
+			System.out.println(encryptedString);
+		}
+		System.out.println(encryptedString);
+
+		String key = "Bar12345Bar12345";
+		Key aesKey = new SecretKeySpec(key.getBytes(), "AES");
 		
+		try{
+			Cipher cipher = Cipher.getInstance("AES");
+			Base64.Decoder decoder = Base64.getDecoder();
+			cipher.init(Cipher.DECRYPT_MODE, aesKey);
+			String decrypted = new String(cipher.doFinal(decoder.decode(encryptedString)));
+			System.out.println(decrypted);
+			AccountModel accountModel = new AccountModel();
+			int status = accountModel.verifyuseraccount(decrypted);
+			if(status == 1)
+			{
+				//account verified 
+				this.errorMessage = "Account verified! login now";
+				redirect("login.xhtml");
+			}
+			else if(status == 2)
+			{
+				this.errorMessage = "Account already verified!";
+				redirect("login.xhtml");
+			}
+		}catch(Exception e)
+		{}
+			
 	}
 
 }

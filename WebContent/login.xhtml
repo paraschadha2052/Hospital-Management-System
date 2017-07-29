@@ -8,10 +8,14 @@
 	  xmlns:p="http://primefaces.org/ui">
 <h:head>
   <title>HMS - Login</title>
+  <script type="text/javascript" src="resources/js/login.js"/>
   <script type="text/javascript">
   $(function() {
 
 	    $('#login-form-link').click(function(e) {
+	    	$( "#error1" ).html("");
+	    	$( "#error2" ).html("");
+	    	
 			$("#login-form").delay(100).fadeIn(100);
 	 		$("#register-form").fadeOut(100);
 			$('#register-form-link').removeClass('active');
@@ -141,7 +145,7 @@
         </f:facet>
 </h:head>
 
-	<h:body>
+	<h:body onload = "test()">
 	<div class="jumbotron">
 		<center><h1>Hospital Management System</h1></center>
 	</div>>
@@ -181,6 +185,14 @@
 											</div>
 										</div>
 									</div>
+									<div>
+		<center>
+		<div style="color:red" id="error1">
+			#{AccountController.errorMessage}
+			<h:messages style="color:red;" /> 
+		</div>
+		</center>
+	</div>
 								</h:form>
 								<h:form id="register-form" style="display: none;">
 									<div class="form-group">
@@ -211,14 +223,7 @@
 											</div>
 										</div>
 									</div>
-									<div class="form-group">
-										<div class="row">
-											<div class="col-sm-12">
-												<h:outputText for="dob" value="Date of Birth : " />
-        										<p:calendar id="dob" value="#{AccountController.dob}" showOn="button" locale="en" navigator="true" pattern="yyyy-MMM-dd" required="true" requiredMessage="DOB is required"/>
-											</div>
-										</div>
-									</div>
+									
 								
 									<div class="form-group">
 										<h:inputText value = "#{AccountController.age}" class="form-control" a:placeholder="Age" required="true" requiredMessage="Age is required"></h:inputText>
@@ -281,6 +286,14 @@
 											</div>
 										</div>
 									</div>
+									<div>
+		<center>
+		<div style="color:red" id="error2">
+			#{AccountController.errorMessage2}
+			<h:messages style="color:red;" /> 
+		</div>
+		</center>
+	</div>
 								</h:form>
 							</div>
 						</div>
@@ -289,13 +302,8 @@
 			</div>
 		</div>
 	</div>
-		<center>
-		<p style="color:red">
-
-			#{AccountController.errorMessage}
-			<h:messages style="color:red;" /> 
-		</p>
-		</center>
+	
+		
 	</h:body>
 
 </html>
