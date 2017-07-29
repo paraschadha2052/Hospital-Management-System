@@ -37,6 +37,7 @@
    <f:metadata>
   	<f:event listener="#{AccountController.verifyLoginOnWelcome()}" type="preRenderView"></f:event>
   	<f:event listener="#{AccountController.verifypatientOnWelcome()}" type="preRenderView"></f:event>
+  	<f:event listener="#{AccountController.loaddeptlist()}" type="preRenderView"></f:event>
   </f:metadata>
 </h:head>
 
@@ -45,18 +46,8 @@
 		<ui:include src="header.xhtml" />
 		<h:form>
 		
-			<h:selectOneMenu value = "#{AccountController.title}"> 
-  				<f:selectItem itemValue = "ANAESTHESIA" itemLabel = "ANAESTHESIA" /> 
-   				<f:selectItem itemValue = "CARDIOLOGY" itemLabel = "CARDIOLOGY" /> 
-   				<f:selectItem itemValue = "ANATOMY" itemLabel = "ANATOMY" /> 
-   				<f:selectItem itemValue = "Cardiovascular and Thoracic Surgery" itemLabel = "Cardiovascular and Thoracic Surgery" /> 
-   				<f:selectItem itemValue = "Community Medicine" itemLabel = "Community Medicine" /> 
-   				<f:selectItem itemValue = "Dermatology Venereology Leprology" itemLabel = "Dermatology Venereology Leprology" /> 
-   				<f:selectItem itemValue = "Dietitics" itemLabel = "Dietitics" /> 
-   				<f:selectItem itemValue = "Gastroenterology" itemLabel = "Gastroenterology" /> 
-   				<f:selectItem itemValue = "General Surgery" itemLabel = "General Surgery" /> 
-   				<f:selectItem itemValue = "Hematology" itemLabel = "Hematology" /> 
-   				<f:selectItem itemValue = "Hepatology" itemLabel = "Hepatology" /> 
+			<h:selectOneMenu value = "#{AccountController.booking_dept}"> 
+  				<f:selectItems value = "#{AccountController.deptlist}"/> 
 			</h:selectOneMenu> 
 			<br/>
 			<h:commandButton value="Book an appointment" action="booking.xhtml"></h:commandButton>

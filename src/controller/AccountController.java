@@ -57,6 +57,9 @@ public class AccountController {
 	public String semail;
 	public String sphone;
 	public String parasquerystring;
+	public String booking_dept;
+	public ArrayList<String> deptlist;
+	
 	
 	
 	
@@ -70,6 +73,22 @@ public class AccountController {
 	
 	public String getErrorMessage() {
 		return errorMessage;
+	}
+
+	public ArrayList<String> getDeptlist() {
+		return deptlist;
+	}
+
+	public void setDeptlist(ArrayList<String> deptlist) {
+		this.deptlist = deptlist;
+	}
+
+	public String getBooking_dept() {
+		return booking_dept;
+	}
+
+	public void setBooking_dept(String booking_dept) {
+		this.booking_dept = booking_dept;
 	}
 
 	public String getErrorMessage2() {
@@ -630,6 +649,19 @@ public class AccountController {
 			
 	}
 
+	public void loaddeptlist()
+	{
+		AccountModel accountModel = new AccountModel();
+		this.deptlist = accountModel.getDeptlist();
+		System.out.println(this.deptlist);
+	}
+	
+	
+	public void loadappointments()
+	{
+		String doc = this.account.getUsername();
+		
+	}
 }
 
 
