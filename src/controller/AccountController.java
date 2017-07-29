@@ -405,7 +405,9 @@ public class AccountController {
 				if(accountModel.login(acc.getUsername(), acc.getPassword()))
 				{
 					this.account = acc;
-					redirect("patient.xhtml");
+					String role = accountModel.getcategory(this.account.getUsername());
+					String to = role + ".xhtml";
+					redirect(to);
 					
 				}
 				else
@@ -422,7 +424,10 @@ public class AccountController {
 			if(context.getExternalContext().getSessionMap().get("username") != null)
 			{
 				System.out.println("Session already exists");
-				redirect("patient.xhtml");
+				AccountModel accountModel = new AccountModel();
+				String role = accountModel.getcategory(this.account.getUsername());
+				String to = role + ".xhtml";
+				redirect(to);
 			}
 		}
 	}

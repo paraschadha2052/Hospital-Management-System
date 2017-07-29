@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Map;
 import java.sql.*;
 public class AccountModel {
-	private String pass = "anshgarg@123";
+	private String pass = "test@123";
 	
 	public boolean login(String username, String password)
 	{
