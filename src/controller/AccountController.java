@@ -59,7 +59,7 @@ public class AccountController {
 	public String parasquerystring;
 	public String booking_dept;
 	public ArrayList<String> deptlist;
-	
+	public ArrayList<ArrayList<String>> appointments;
 	
 	
 	
@@ -73,6 +73,14 @@ public class AccountController {
 	
 	public String getErrorMessage() {
 		return errorMessage;
+	}
+
+	public ArrayList<ArrayList<String>> getAppointments() {
+		return appointments;
+	}
+
+	public void setAppointments(ArrayList<ArrayList<String>> appointments) {
+		this.appointments = appointments;
 	}
 
 	public ArrayList<String> getDeptlist() {
@@ -660,6 +668,7 @@ public class AccountController {
 	public void loadappointments()
 	{
 		String doc = this.account.getUsername();
+		//load the appointments for this doc
 		
 	}
 }

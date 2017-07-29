@@ -39,13 +39,14 @@
    <f:metadata>
   	<f:event listener="#{AccountController.verifyLoginOnWelcome()}" type="preRenderView"></f:event>
   	<f:event listener="#{AccountController.verifydoctorOnWelcome()}" type="preRenderView"></f:event>
+  	<f:event listener="#{AccountController.loadappointments()}" type="preRenderView"></f:event>
   </f:metadata>
 </h:head>
 
 	<h:body>
 	
 		<ui:include src="header.xhtml" />
-	    <p style="padding-top:15%; text-align:center"> Today's Appointments </p><br/><br/>
+	    <p style="padding-top:1%; text-align:center"> Today's Appointments </p><br/><br/>
 		<p:dataTable var="pid" value="#{dtBasicView.cars}">
         <p:column headerText="Patient Id">
         <h:outputText value="#" />
@@ -53,10 +54,10 @@
    		<p:column headerText="Patient's Name">
         <h:outputText value="#" />
     	</p:column>
- 		<p:column headerText="Time">
+ 		<p:column headerText="Date">
         <h:outputText value="#" />
         </p:column>
- 		<p:column headerText="Contact">
+ 		<p:column headerText="Cancel">
         <h:outputText value="#" />
     	</p:column>
 		</p:dataTable> 
