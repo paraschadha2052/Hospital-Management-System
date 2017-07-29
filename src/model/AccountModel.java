@@ -200,4 +200,30 @@ public class AccountModel {
 			return 0;
 		}
 	}
+	public ArrayList<String> getDeptlist()
+	{
+		ArrayList<String> list = new ArrayList<String>();
+		String tmp = "";
+		String query = "select deptName from departments";
+		System.out.println(query);
+		try{  
+			Class.forName("com.mysql.jdbc.Driver");     
+			Connection con = DriverManager.getConnection( "jdbc:mysql://localhost:3306/HMS","root",pass);  
+			PreparedStatement stmt = con.prepareStatement(query);  
+			ResultSet rs = stmt.executeQuery();
+			System.out.println(rs);
+			while(rs.next())
+			{
+				tmp = rs.getString(1);
+				list.add(tmp);
+			}
+			con.close();
+			
+		}
+		catch(Exception e)
+		{  
+			System.out.println(e);  
+		}
+		return list;
+	}
 }
