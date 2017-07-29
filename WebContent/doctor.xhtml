@@ -15,6 +15,10 @@
             
             <h:outputScript name="bootstrap/js/bootstrap.js" />
         </f:facet>
+   <f:metadata>
+  	<f:event listener="#{AccountController.verifyLoginOnWelcome()}" type="preRenderView"></f:event>
+  	<f:event listener="#{AccountController.verifydoctorOnWelcome()}" type="preRenderView"></f:event>
+  </f:metadata>
 </h:head>
 
 	<h:body>
