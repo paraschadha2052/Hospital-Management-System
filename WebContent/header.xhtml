@@ -28,6 +28,8 @@
         <li><a href="#">Page 3</a></li> 
       </ul>
       <ul class="nav navbar-nav navbar-right">
+            <li><p class="navbar-text">Hi, #{AccountController.account.username}</p></li>
+            <li><h:form><h:commandLink action="#{AccountController.logout()}" styleClass="form-commandLink-nav" value="Logout" /></h:form></li>
       </ul>
     </div>
   </div>
