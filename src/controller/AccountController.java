@@ -37,14 +37,182 @@ public class AccountController {
 	private Account account = new Account();
 	private boolean remember;
 	public String errorMessage;
+	public String title;
+	public String fname;
+	public String mname;
+	public String lname;
+	public String gender;
+	public String dob;
+	public String age;
+	public String maritalstatus;
+	public String bloodgroup;
+	public String nationality;
+	public String address;
+	public String uid;
+	public String allergies;
+	public String susername;
+	public String spass;
+	public String spassre;
+	public String semail;
+	public String sphone;
 	
-
+	
+	
 	
 	/*
 	 * GETTERS AND SETTERS
 	 */
+	
+	
+	
+	
+	
 	public String getErrorMessage() {
 		return errorMessage;
+	}
+
+	public String getSphone() {
+		return sphone;
+	}
+
+	public void setSphone(String sphone) {
+		this.sphone = sphone;
+	}
+
+	public String getSemail() {
+		return semail;
+	}
+
+	public void setSemail(String semail) {
+		this.semail = semail;
+	}
+
+	public String getAllergies() {
+		return allergies;
+	}
+
+	public void setAllergies(String allergies) {
+		this.allergies = allergies;
+	}
+
+	public String getSusername() {
+		return susername;
+	}
+
+	public void setSusername(String susername) {
+		this.susername = susername;
+	}
+
+	public String getSpass() {
+		return spass;
+	}
+
+	public void setSpass(String spass) {
+		this.spass = spass;
+	}
+
+	public String getSpassre() {
+		return spassre;
+	}
+
+	public void setSpassre(String spassre) {
+		this.spassre = spassre;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	public String getUid() {
+		return uid;
+	}
+
+	public void setUid(String uid) {
+		this.uid = uid;
+	}
+
+	public String getNationality() {
+		return nationality;
+	}
+
+	public void setNationality(String nationality) {
+		this.nationality = nationality;
+	}
+
+	public String getBloodgroup() {
+		return bloodgroup;
+	}
+
+	public void setBloodgroup(String bloodgroup) {
+		this.bloodgroup = bloodgroup;
+	}
+
+	public String getMaritalstatus() {
+		return maritalstatus;
+	}
+
+	public void setMaritalstatus(String maritalstatus) {
+		this.maritalstatus = maritalstatus;
+	}
+
+	public String getAge() {
+		return age;
+	}
+
+	public void setAge(String age) {
+		this.age = age;
+	}
+
+	public String getDob() {
+		return dob;
+	}
+
+	public void setDob(String dob) {
+		this.dob = dob;
+	}
+
+	public String getGender() {
+		return gender;
+	}
+
+	public void setGender(String gender) {
+		this.gender = gender;
+	}
+
+	public String getFname() {
+		return fname;
+	}
+
+	public void setFname(String fname) {
+		this.fname = fname;
+	}
+
+	public String getMname() {
+		return mname;
+	}
+
+	public void setMname(String mname) {
+		this.mname = mname;
+	}
+
+	public String getLname() {
+		return lname;
+	}
+
+	public void setLname(String lname) {
+		this.lname = lname;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
 	}
 
 	public void setErrorMessage(String errorMessage) {
@@ -250,6 +418,11 @@ public class AccountController {
 		return account;
 	}
 	
+	public void signup()
+	{
+		
+	}
+
 }
 
 
