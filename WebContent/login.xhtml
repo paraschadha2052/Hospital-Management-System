@@ -149,7 +149,7 @@
 	<div class="jumbotron">
 		<center><h1>Hospital Management System</h1></center>
 	</div>>
-		<div class="container">
+        <div class="container">
     	<div class="row">
 			<div class="col-md-6 col-md-offset-3">
 				<div class="panel panel-login">
@@ -169,19 +169,19 @@
 							<div class="col-lg-12">
 							 	<h:form id="login-form" style="display: block;"> 
 									<div class="form-group">
-										<h:inputText value = "#{AccountController.account.username}" name="username" id="username" tabindex="1" class="form-control" a:placeholder="Username" />
+										<h:inputText value = "#{AccountController.account.username}" id="username" class="form-control" a:placeholder="Username" />
 									</div>
 									<div class="form-group">
-										<h:inputSecret value = "#{AccountController.account.password}" name="password" id="password" tabindex="2" class="form-control" a:placeholder="Password"/>
+										<h:inputSecret value = "#{AccountController.account.password}" id="password" class="form-control" a:placeholder="Password"/>
 									</div>
 									<div class="form-group text-center">
-										<h:selectBooleanCheckbox value = "#{AccountController.remember}" tabindex="3" class="" name="remember" id="remember" />
+										<h:selectBooleanCheckbox value = "#{AccountController.remember}" class="" id="remember" />
 										<label for="remember"> Remember Me</label>
 									</div>
 									<div class="form-group">
 										<div class="row">
 											<div class="col-sm-6 col-sm-offset-3">
-												<h:commandButton action = "#{AccountController.login()}" name="login-submit" id="login-submit" tabindex="4" class="form-control btn btn-login" value="Log In"/>
+												<h:commandButton action = "#{AccountController.login()}" id="login-submit" class="form-control btn btn-login" value="Log In"/>
 											</div>
 										</div>
 									</div>
@@ -265,24 +265,24 @@
 										<h:inputText value = "#{AccountController.allergies}" class="form-control" a:placeholder="Allergies (optional)"></h:inputText>
 									</div>
 									<div class="form-group">
-										<h:inputText value = "#{AccountController.susername}" name="username" id="username" tabindex="1" class="form-control" a:placeholder="Username" required="true" requiredMessage="Username is required"></h:inputText>
+										<h:inputText value = "#{AccountController.susername}" id="username" class="form-control" a:placeholder="Username" required="true" requiredMessage="Username is required"></h:inputText>
 									</div>
 									<div class="form-group">
-										<h:inputText value = "#{AccountController.semail}" name="email" id="email" tabindex="1" class="form-control" a:placeholder="Email" required="true" requiredMessage="Email is required" validatorMessage="Email is not valid"><f:validateRegex pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]" /></h:inputText>
+										<h:inputText value = "#{AccountController.semail}" id="email" class="form-control" a:placeholder="Email" required="true" requiredMessage="Email is required" validatorMessage="Email is not valid"><f:validateRegex pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]" /></h:inputText>
 									</div>
 									<div class="form-group">
 										<h:inputText value = "#{AccountController.sphone}" class="form-control" a:placeholder="Mobile" required="true" requiredMessage="Mobile number is required" validatorMessage="Mobile number is not valid" a:maxlength="10"><f:validateRegex pattern="^[0-9]{10}$" /></h:inputText>
 									</div>
 									<div class="form-group">
-										<h:inputSecret value = "#{AccountController.spass}" name="password" id="password" tabindex="2" class="form-control" a:placeholder="Password" required="true" requiredMessage="Password is required"></h:inputSecret>
+										<h:inputSecret value = "#{AccountController.spass}" id="password" class="form-control" a:placeholder="Password" required="true" requiredMessage="Password is required"></h:inputSecret>
 									</div>
 									<div class="form-group">
-										<h:inputSecret value = "#{AccountController.spassre}" name="confirm-password" id="confirm-password" tabindex="2" class="form-control" a:placeholder="Re-enter Password" required="true" requiredMessage="Re enter Password is required"></h:inputSecret>
+										<h:inputSecret value = "#{AccountController.spassre}" id="confirm-password" class="form-control" a:placeholder="Re-enter Password" required="true" requiredMessage="Re enter Password is required"></h:inputSecret>
 									</div>
 									<div class="form-group">
 										<div class="row">
 											<div class="col-sm-6 col-sm-offset-3">
-												<h:commandButton name="register-submit" id="register-submit" tabindex="4" class="form-control btn btn-register" value="Register Now" action="#{AccountController.signup()}"></h:commandButton>
+												<h:commandButton id="register-submit" class="form-control btn btn-register" value="Register Now" action="#{AccountController.signup()}"></h:commandButton>
 											</div>
 										</div>
 									</div>
