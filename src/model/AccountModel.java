@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Map;
 import java.sql.*;
 public class AccountModel {
-	private String pass = "test@123";
+	private String pass = "anshgarg@123";
 	
 	public boolean login(String username, String password)
 	{
@@ -152,7 +152,31 @@ public class AccountModel {
 	
 	public String getcategory(String username)
 	{
-		return "test";
+		String tmp = "";
+		String query = "select category from users where uname = \"";
+		query += username;
+		query += "\"";
+		System.out.println(query);
+		try{  
+			Class.forName("com.mysql.jdbc.Driver");     
+			Connection con = DriverManager.getConnection( "jdbc:mysql://localhost:3306/HMS","root",pass);  
+			PreparedStatement stmt = con.prepareStatement(query);  
+			ResultSet rs = stmt.executeQuery();
+			System.out.println(rs);
+			while(rs.next())
+			{
+				tmp = rs.getString(1);
+				System.out.println(tmp);
+				
+			}
+			con.close();
+			
+		}
+		catch(Exception e)
+		{  
+			System.out.println(e);  
+		}
+		return tmp;
 	}
 	public int verifyuseraccount(String username)
 	{

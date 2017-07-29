@@ -314,9 +314,25 @@ public class AccountController {
 				
 				//redirect to a particular page
 				/*
-				 * HERE WE CAN REDIRECT BASED ON ROLES
+				 * HERE WE REDIRECT BASED ON ROLES
+				 * admin
+				 * patient
+				 * doctor
 				 */
-				redirect("test.xhtml");
+				String role = accountModel.getcategory(this.account.getUsername());
+				
+				if(role.equals("admin"))
+				{
+					redirect("admin.xhtml");
+				}
+				else if(role.equals("patient"))
+				{
+					redirect("patient.xhtml");
+				}
+				else if(role.equals("doctor"))
+				{
+					redirect("doctor.xhtml");
+				}
 			}
 			
 		}
@@ -389,7 +405,7 @@ public class AccountController {
 				if(accountModel.login(acc.getUsername(), acc.getPassword()))
 				{
 					this.account = acc;
-					redirect("test.xhtml");
+					redirect("patient.xhtml");
 					
 				}
 				else
@@ -406,7 +422,7 @@ public class AccountController {
 			if(context.getExternalContext().getSessionMap().get("username") != null)
 			{
 				System.out.println("Session already exists");
-				redirect("test.xhtml");
+				redirect("patient.xhtml");
 			}
 		}
 	}
@@ -575,6 +591,37 @@ public class AccountController {
 			}
 		}catch(Exception e)
 		{}
+			
+	}
+	
+	public void verifydoctorOnWelcome()
+	{
+		AccountModel accountModel = new AccountModel();
+		String role = accountModel.getcategory(this.account.getUsername());
+		if(!role.equals("doctor"))
+		{
+			redirect("login.xhtml");
+		}
+			
+	}
+	public void verifypatientOnWelcome()
+	{
+		AccountModel accountModel = new AccountModel();
+		String role = accountModel.getcategory(this.account.getUsername());
+		if(!role.equals("patient"))
+		{
+			redirect("login.xhtml");
+		}
+			
+	}
+	public void verifyadminOnWelcome()
+	{
+		AccountModel accountModel = new AccountModel();
+		String role = accountModel.getcategory(this.account.getUsername());
+		if(!role.equals("admin"))
+		{
+			redirect("login.xhtml");
+		}
 			
 	}
 
