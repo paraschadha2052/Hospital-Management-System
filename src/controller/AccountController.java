@@ -60,12 +60,74 @@ public class AccountController {
 	public String booking_dept;
 	public ArrayList<String> deptlist;
 	public ArrayList<ArrayList<String>> appointments;
-	
-	
-	
-	/*
-	 * GETTERS AND SETTERS
-	 */
+	public Date appointment_booking_date = Calendar.getInstance().getTime();
+        public String patientId;
+        public ArrayList<ArrayList<String>> availableDoctors;
+        public String appointmentID;
+        public String appointmentDate;
+        public String doctorName;
+        public String departmentName;
+
+
+       /*
+     * GETTERS AND SETTERS
+     */ 
+        
+    public String getAppointmentID() {
+        return appointmentID;
+    }
+
+    public void setAppointmentID(String appointmentID) {
+        this.appointmentID = appointmentID;
+    }
+
+    public String getAppointmentDate() {
+        return appointmentDate;
+    }
+
+    public void setAppointmentDate(String appointmentDate) {
+        this.appointmentDate = appointmentDate;
+    }
+
+    public String getDoctorName() {
+        return doctorName;
+    }
+
+    public void setDoctorName(String doctorName) {
+        this.doctorName = doctorName;
+    }
+
+    public String getDepartmentName() {
+        return departmentName;
+    }
+
+    
+    public void setDepartmentName(String departmentName) {
+        this.departmentName = departmentName;
+    }
+
+    public ArrayList<ArrayList<String>> getAvailableDoctors() {
+        return availableDoctors;
+    }
+
+    public void setAvailableDoctors(ArrayList<ArrayList<String>> availableDoctors) {
+        this.availableDoctors = availableDoctors;
+    }   
+        public String getPatientId() {
+        return patientId;
+    }
+
+    public void setPatientId(String patientId) {
+        this.patientId = patientId;
+    }
+        
+    public Date getAppointment_booking_date() {
+        return appointment_booking_date;
+    }
+
+    public void setAppointment_booking_date(Date appointment_booking_date) {
+        this.appointment_booking_date = appointment_booking_date;
+    }
 	
 	
 	
@@ -760,6 +822,47 @@ public class AccountController {
 	{
 		redirect("diagnose.xhtml");
 	}
+                
+        public void checkAppointmentsPatient()
+        {
+            // check for already booked appointments
+            AccountModel accountModel = new AccountModel();
+            ArrayList<String> arr = accountModel.getPatientDetails(this.account.getUsername());
+            this.setPatientId(arr.get(0));;
+            if(accountModel.alreadyBookedAppointment(this.patientId)) {
+                this.redirect("view_appointment.xhtml");
+            }
+        }
+        
+        public void showDoctorsList()
+        {
+            String dept = this.booking_dept;
+            Date app_date = this.appointment_booking_date;
+            AccountModel accountModel = new AccountModel();
+            this.availableDoctors = accountModel.getAvailableDoctorsList(dept, app_date);
+            System.out.println(this.availableDoctors);
+        }
+        
+        public void bookAppointment(String date, String docId, String deptId, String slots)
+        {
+            System.out.println("Called");
+            AccountModel accountModel = new AccountModel();
+            ArrayList<String> arr = accountModel.getPatientDetails(this.account.getUsername());
+            System.out.println(this.patientId + " " + date + " " + docId + " " + deptId + " " + arr.get(1) + " " + Integer.parseInt(slots));
+            accountModel.addAppointmenttoTable(this.patientId, date, docId, deptId, arr.get(1), Integer.parseInt(slots));
+            this.redirect("view_appointment.xhtml");
+        }
+        
+        public void loadAppointment()
+        {
+            AccountModel accountModel = new AccountModel();
+            ArrayList<String> arr = accountModel.getAppointmentDetailsPatient(this.account.getUsername());
+            this.appointmentID = arr.get(0);
+            this.appointmentDate = arr.get(1);
+            this.doctorName = arr.get(2);
+            this.departmentName = arr.get(3);
+        }
+
 }
 
 
