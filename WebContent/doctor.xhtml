@@ -45,15 +45,16 @@
 
 	<h:body>
 	
-		<ui:include src="header.xhtml" />
+		<ui:include src="header_doctor.xhtml" />
 	    <p style="padding-top:1%; text-align:center"> Today's Appointments </p><br/><br/>
+	    <div style="margin-left:10%;margin-right:10%">
 		<p:dataTable var="pid" value="#{AccountController.appointments}">
 	        <p:column headerText="Patient Id">
 	        	#{pid[1]}
 	        </p:column>
 	   		<p:column headerText="Patient's Name">
 	   			<h:form>
-	        		<h:commandLink value = "#{pid[5]}" action = "#{AccountController.diagnose(pid[1])}"></h:commandLink>
+	        		<h:commandLink value = "#{pid[5]}" action = "#{AccountController.diagnose(pid[1],pid[5])}"></h:commandLink>
 	        	</h:form>
 	        	
 	    	</p:column>
@@ -66,7 +67,7 @@
 	        	</h:form>
 	    	</p:column>
 		</p:dataTable> 
-			
+		</div>
 		
 	</h:body>
 

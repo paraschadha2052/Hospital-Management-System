@@ -143,12 +143,12 @@ and open the template in the editor.
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
         <f:metadata>
         	<f:event listener="#{AccountController.verifyLoginOnWelcome()}" type="preRenderView"></f:event>
-  			<f:event listener="#{AccountController.verifypatientOnWelcome()}" type="preRenderView"></f:event>
-            <f:event listener="#{AccountController.loadProfile()}" type="preRenderView"></f:event>
+  			<f:event listener="#{AccountController.verifydoctorOnWelcome()}" type="preRenderView"></f:event>
+            <f:event listener="#{AccountController.loadProfileDoc()}" type="preRenderView"></f:event>
         </f:metadata>
     </h:head>
     <h:body>
-        <ui:include src="header_patient.xhtml" />
+        <ui:include src="header_doctor.xhtml" />
         <div class="container">
     	<div class="row">
         <div class="col-md-6 col-md-offset-3">
@@ -159,19 +159,11 @@ and open the template in the editor.
         <h:form id="register-form" style="display: block;">
                 <div class="form-group">
                         <div class="row">
-                                <div class="col-sm-3">
-                                        <h:selectOneMenu value = "#{AccountController.title}" class="form-control"> 
-                                                <f:selectItem itemValue = "Mr." itemLabel = "Mr." /> 
-                                                <f:selectItem itemValue = "Mrs." itemLabel = "Mrs." /> 
-                                                <f:selectItem itemValue = "Ms." itemLabel = "Ms." /> 
-                                        </h:selectOneMenu> 
-                                </div>
+                                
                                 <div class="col-sm-4">
                                         <h:inputText value = "#{AccountController.fname}" class="form-control" a:placeholder="First Name" required="true" requiredMessage="First name is required"></h:inputText>
                                 </div>
-                                <div class="col-sm-5">
-                                        <h:inputText value = "#{AccountController.lname}" class="form-control" a:placeholder="Last Name" required="true" requiredMessage="Last Name is required"></h:inputText>
-                                </div>
+                               
                         </div>
                 </div>
                 <div class="form-group">
@@ -190,42 +182,12 @@ and open the template in the editor.
                 <div class="form-group">
                         <h:inputText value = "#{AccountController.age}" class="form-control" a:placeholder="Age" required="true" requiredMessage="Age is required"></h:inputText>
                 </div>
-                <div class="form-group">
-                        <div class="row">
-                                <div class="col-sm-12">
-                                        <h:selectOneMenu value = "#{AccountController.maritalstatus}" class="form-control" required="true" requiredMessage="Maritial is required"> 
-                                                <f:selectItem itemValue = "Married" itemLabel = "Married" /> 
-                                                <f:selectItem itemValue = "Unmarried" itemLabel = "Unmarried" /> 
-                                                <f:selectItem itemValue = "Divorced" itemLabel = "Divorced" /> 
-                                                <f:selectItem itemValue = "Widowed" itemLabel = "Widowed" /> 
-                                        </h:selectOneMenu>  
-                                </div>
-                        </div>
-                </div>
-                <div class="form-group">
-                        <h:inputText value = "#{AccountController.bloodgroup}" class="form-control" a:placeholder="Blood Group" required="true" requiredMessage="Blood group is required"></h:inputText>
-                </div>
-                <div class="form-group">
-                        <div class="row">
-                                <div class="col-sm-12">
-                                        <h:selectOneMenu value = "#{AccountController.nationality}" class="form-control"> 
-                                                <f:selectItem itemValue = "Indian" itemLabel = "Indian" /> 
-                                                <f:selectItem itemValue = "Unmarried" itemLabel = "Unmarried" /> 
-                                                <f:selectItem itemValue = "Indonesian" itemLabel = "Indonesian" /> 
-                                                <f:selectItem itemValue = "Japanese" itemLabel = "Japanese" /> 
-                                        </h:selectOneMenu>
-                                </div>
-                        </div>
-                </div>
+                
+               
                 <div class="form-group">
                         <h:inputText value = "#{AccountController.address}" class="form-control" a:placeholder="Address" required="true" requiredMessage="Address is required"></h:inputText>
                 </div>
-                <div class="form-group">
-                        <h:inputText value = "#{AccountController.uid}" class="form-control" a:placeholder="UID number" required="true" requiredMessage="UID is required"></h:inputText>
-                </div>
-                <div class="form-group">
-                        <h:inputText value = "#{AccountController.allergies}" class="form-control" a:placeholder="Allergies (optional)"></h:inputText>
-                </div>
+               
                 <div class="form-group">
                         <h:inputText value = "#{AccountController.susername}" disabled="true" id="username" class="form-control" a:placeholder="Username" required="true" requiredMessage="Username is required"></h:inputText>
                 </div>
@@ -238,7 +200,7 @@ and open the template in the editor.
                 <div class="form-group">
                         <div class="row">
                                 <div class="col-sm-6 col-sm-offset-3">
-                                        <h:commandButton id="register-submit" class="form-control btn btn-register" value="Update Details" action="#{AccountController.updateDetails()}"></h:commandButton>
+                                        <h:commandButton id="register-submit" class="form-control btn btn-register" value="Update Details" action="#{AccountController.updateDetailsdoc()}"></h:commandButton>
                                 </div>
                         </div>
                 </div>
