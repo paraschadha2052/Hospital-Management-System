@@ -382,4 +382,50 @@ public class AccountModel {
     		}
     		return tmp;
         }
+        public ArrayList<String> getDocDetails(String username)
+    	{
+    		ArrayList<String> list = new ArrayList<String>();
+    		String tmp = "";
+    		String query = "select * from doctors where uname='"+username+"'";
+    		System.out.println(query);
+    		try{  
+    			Class.forName("com.mysql.jdbc.Driver");     
+    			Connection con = DriverManager.getConnection( "jdbc:mysql://localhost:3306/HMS","root",pass);  
+    			PreparedStatement stmt = con.prepareStatement(query);  
+    			ResultSet rs = stmt.executeQuery();
+    			System.out.println(rs);
+                            rs.next();
+    			for(int i=1;i<=9;i++)
+    			{
+    				tmp = rs.getString(i);
+    				list.add(tmp);
+    			}
+    			con.close();
+    			
+    		}
+    		catch(Exception e)
+    		{  
+    			System.out.println(e);  
+    		}
+    		return list;
+    	}
+         
+        public void updateDetailsdoc(String fname, String age,String gender,String address,String susername,String semail,String sphone,String uname)
+        {
+        	//add data to doctors table
+    		String dob = "";
+    		try{
+    			String query = "update doctors set name = '"+fname+"',age = "+age+",gender = '"+gender+"',address = '"+address+"',email = '"+semail+"',contact = '"+sphone+"' where uname = '"+uname+"';";
+    			Class.forName("com.mysql.jdbc.Driver");     
+    			System.out.println(query);
+    			Connection con = DriverManager.getConnection( "jdbc:mysql://localhost:3306/HMS","root",pass);  
+    			PreparedStatement stmt = con.prepareStatement(query);  
+    			stmt.executeUpdate();
+    			con.close();
+    		}
+    		catch(Exception e)
+    		{  
+    			System.out.println(e);  
+    		}
+        }
 }

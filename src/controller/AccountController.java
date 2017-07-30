@@ -669,7 +669,12 @@ public class AccountController {
         */
         public void loadProfile()
 	{
+        	
                 AccountModel accountModel = new AccountModel();
+                if(this.account.getUsername() == null)
+                {
+                	return;
+                }
                 ArrayList<String> arr = accountModel.getPatientDetails(this.account.getUsername());
                 String[] parts = arr.get(1).split(" ");
                 this.title = parts[0];
@@ -760,6 +765,31 @@ public class AccountController {
 	{
 		redirect("diagnose.xhtml");
 	}
+	
+	public void loadProfileDoc()
+	{
+                AccountModel accountModel = new AccountModel();
+                if(this.account.getUsername() == null)
+                {
+                	return;
+                }
+                ArrayList<String> arr = accountModel.getDocDetails(this.account.getUsername());
+                System.out.println("TEST AGAIN >>>>>>>> " + arr);
+                this.fname = arr.get(1);
+                
+                this.age = arr.get(6);
+                this.gender = arr.get(8);
+                this.address = arr.get(4);
+                this.susername = arr.get(7);
+                this.semail = arr.get(5);
+                this.sphone = arr.get(3);
+	}
+	 public void updateDetailsdoc()
+		{
+	                
+		 AccountModel accountModel = new AccountModel();
+	     accountModel.updateDetailsdoc(this.fname, this.age,this.gender,this.address,this.susername,this.semail,this.sphone,this.account.getUsername());
+		}
 }
 
 
