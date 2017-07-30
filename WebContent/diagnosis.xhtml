@@ -39,6 +39,7 @@
    <f:metadata>
   	<f:event listener="#{AccountController.verifyLoginOnWelcome()}" type="preRenderView"></f:event>
   	<f:event listener="#{AccountController.verifydoctorOnWelcome()}" type="preRenderView"></f:event>
+  	<f:event listener="#{AccountController.loadmedicalhistory()}" type="preRenderView"></f:event>
   </f:metadata>
 </h:head>
 
@@ -47,6 +48,40 @@
 		<ui:include src="header_doctor.xhtml" />
 		
 		<center><img class="img-responsive" style="display:center; width:10%; height:10%;" src = "https://cdn3.iconfinder.com/data/icons/rcons-user-action/32/boy-512.png"/><h2>#{AccountController.current_patient}</h2></center>
+	   <br/>
+	   <p style="padding-top:0.5%; text-align:center"> Previous Medical history</p><br/><br/>
+	  <div style="margin-left:10%;margin-right:10%">
+	  	<p:dataTable var="pid" value="#{AccountController.medicalhistory}">
+	        
+	   		<p:column headerText="Disease">
+	   			<h:form>
+	        		#{pid[1]}
+	        	</h:form>
+	        	
+	    	</p:column>
+	    	<p:column headerText="Prescriptions">
+	   			<h:form>
+	        		#{pid[2]}
+	        	</h:form>
+	        	
+	    	</p:column>
+	    	<p:column headerText="Remarks">
+	   			<h:form>
+	        		#{pid[3]}
+	        	</h:form>
+	        	
+	    	</p:column>
+	 		<p:column headerText="Date">
+	        	#{pid[4]}
+	        </p:column>
+	 		
+		</p:dataTable> 
+	  </div> 
+		
+		<br/><br/>
+		<br/>
+	   
+	   
 	    <h:form id="register-form">
 								
 									
@@ -77,7 +112,7 @@
 									<div class="form-group">
 										<div class="row">
 											<div class="col-sm-6 col-sm-offset-3">
-												<h:commandButton class="btn" value="Submit Now" action="#{AccountController.submitreport()}" style="color:green"></h:commandButton>
+												<h:commandButton class="btn btn-success" value="Submit Now" action="#{AccountController.submitreport()}" ></h:commandButton>
 											</div>
 										</div>
 									</div>

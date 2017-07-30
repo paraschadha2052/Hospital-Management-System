@@ -491,4 +491,39 @@ public class AccountModel {
     			System.out.println(e);  
     		}
         }
+        
+        public ArrayList<ArrayList<String>> getMedicalHistory(String patientID)
+    	{
+        	
+        	
+        	//now load his medical history
+        	String tmp,id;
+    		String query = "select * from patientinfo where patientID = " + patientID;
+    		System.out.println(query);
+    		ArrayList<ArrayList<String>> outer = new ArrayList<ArrayList<String>>();
+    		try{  
+    			Class.forName("com.mysql.jdbc.Driver");     
+    			Connection con = DriverManager.getConnection( "jdbc:mysql://localhost:3306/HMS","root",pass);  
+    			PreparedStatement stmt = con.prepareStatement(query);  
+    			ResultSet rs = stmt.executeQuery();
+    			System.out.println(rs);
+    			
+    			ResultSetMetaData rsmd = rs.getMetaData();
+    			int columnsNumber = rsmd.getColumnCount();
+    			while (rs.next()) {
+    				ArrayList<String> inner = new ArrayList<String>(); 
+    			    for(int i=1; i<=columnsNumber; i++){
+    			       inner.add(rs.getString(i));
+    			    }    
+    			    outer.add(inner);               
+    			}
+    			con.close();
+    		}
+    		catch(Exception e)
+    		{  
+    			System.out.println(e);  
+    		}
+    		
+    		return outer;
+    	}
 }

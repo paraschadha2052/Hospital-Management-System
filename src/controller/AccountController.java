@@ -65,6 +65,9 @@ public class AccountController {
 	public String prescriptions;
 	public String remarks;
 	public String current_patient_id;
+	public ArrayList<ArrayList<String>> medicalhistory;
+
+	
 	
 	
 	
@@ -78,6 +81,14 @@ public class AccountController {
 	
 	public String getErrorMessage() {
 		return errorMessage;
+	}
+
+	public ArrayList<ArrayList<String>> getMedicalhistory() {
+		return medicalhistory;
+	}
+
+	public void setMedicalhistory(ArrayList<ArrayList<String>> medicalhistory) {
+		this.medicalhistory = medicalhistory;
 	}
 
 	public String getCurrent_patient_id() {
@@ -851,6 +862,15 @@ public class AccountController {
 		 //remove from appointments
 		 accountModel.removeappointment(patientID);
 		 redirect("doctor.xhtml");
+	 }
+	 
+	 public void loadmedicalhistory()
+	 {
+		 String patientID = this.current_patient_id;
+			//load the appointments for this doc
+			AccountModel accountModel = new AccountModel();
+			this.medicalhistory = accountModel.getMedicalHistory(patientID);
+			System.out.println(this.medicalhistory);
 	 }
 }
 

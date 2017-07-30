@@ -47,6 +47,7 @@
 	
 		<ui:include src="header_doctor.xhtml" />
 	    <p style="padding-top:1%; text-align:center"> Today's Appointments </p><br/><br/>
+	    <div style="margin-left:10%;margin-right:10%">
 		<p:dataTable var="pid" value="#{AccountController.appointments}">
 	        <p:column headerText="Patient Id">
 	        	#{pid[1]}
@@ -66,7 +67,7 @@
 	        	</h:form>
 	    	</p:column>
 		</p:dataTable> 
-			
+		</div>
 		
 	</h:body>
 
