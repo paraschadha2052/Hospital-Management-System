@@ -7,7 +7,7 @@ import java.util.Map;
 import java.sql.*;
 public class AccountModel {
 
-	private String pass = "anshgarg@123";
+	private String pass = "test@123";
 
 	
 	public boolean login(String username, String password)
@@ -526,4 +526,31 @@ public class AccountModel {
     		
     		return outer;
     	}
+        public String getpatientIDfromuid(String uid)
+        {
+        	String tmp = "";
+    		String query = "select patientID from patients where uid = ";
+    		query += uid;
+    		System.out.println(query);
+    		try{  
+    			Class.forName("com.mysql.jdbc.Driver");     
+    			Connection con = DriverManager.getConnection( "jdbc:mysql://localhost:3306/HMS","root",pass);  
+    			PreparedStatement stmt = con.prepareStatement(query);  
+    			ResultSet rs = stmt.executeQuery();
+    			System.out.println(rs);
+    			while(rs.next())
+    			{
+    				tmp = rs.getString(1);
+    				System.out.println(tmp);
+    				
+    			}
+    			con.close();
+    			
+    		}
+    		catch(Exception e)
+    		{  
+    			System.out.println(e);  
+    		}
+    		return tmp;
+        }
 }

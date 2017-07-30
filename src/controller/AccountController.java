@@ -872,6 +872,25 @@ public class AccountController {
 			this.medicalhistory = accountModel.getMedicalHistory(patientID);
 			System.out.println(this.medicalhistory);
 	 }
+	 
+	 public void api()
+	 {
+		 String uid = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("uid");
+		 System.out.println(uid);
+		 //get the patientid from uid
+		 AccountModel accountModel = new AccountModel();
+		 String patientid = accountModel.getpatientIDfromuid(uid);
+		 
+		 if(patientid.equals(""))
+		 {
+			 return;
+		 }
+		 System.out.println(patientid);
+		 //now fetch the previous history
+		 this.medicalhistory = accountModel.getMedicalHistory(patientid);
+			System.out.println(this.medicalhistory);
+		redirect("response.xhtml");
+	 }
 }
 
 
