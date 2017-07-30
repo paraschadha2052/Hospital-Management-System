@@ -1,0 +1,62 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"  
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+<h:head>
+    <link rel="stylesheet" type="text/css" href="resources/css/login.css"/>
+    <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css?family=Merriweather+Sans" rel="stylesheet"/>
+    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
+  <title><ui:insert name="title">View Appointment</ui:insert></title>
+  <f:metadata>
+            <f:event listener="#{AccountController.loadAppointment()}" type="preRenderView"></f:event>
+        </f:metadata>
+  <style type="text/css">
+      .form-commandLink-nav {
+        color: #ffffff ;
+        padding-top: 19.5px;
+        padding-bottom: 19.5px;
+        padding-left: 15px;
+        padding-right: 15px;
+        line-height: 21px;
+        position: relative;
+        display: block;
+        text-decoration: none;
+        background-color: transparent;
+        outline: 0;
+        margin-bottom: 0;
+      }
+      .form-commandLink-nav:hover {
+          color: #2c3e50 ;
+          background-color: transparent;
+          text-decoration: none;
+      }
+  </style>
+  <f:facet name="middle">
+            <h:outputStylesheet name="bootstrap/css/bootstrap.flatly.css" />            
+           <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js" />
+            <h:outputScript name="bootstrap/js/bootstrap.js" />
+        </f:facet>
+ </h:head>
+<h:body>
+<ui:include src="header_patient.xhtml" /><br/>
+<center><strong><p style="font-size:30px; font-family:Merriweather Sans"> Your Appointments </p></strong></center>
+<p style="font-size:20px; font-family:Merriweather Sans; margin-left:10%"> Appointment ID: #{AccountController.appointmentID}</p>
+<p style="font-size:20px; font-family:Merriweather Sans; margin-left:10%"> Date: #{AccountController.appointmentDate}</p>
+<p style="font-size:20px; font-family:Merriweather Sans; margin-left:10%"> Doctor Name: #{AccountController.doctorName}</p>
+<p style="font-size:20px; font-family:Merriweather Sans; margin-left:10%"> Department: #{AccountController.departmentName}</p>
+<h:form>
+<div class="form-group">
+                        <div class="row">
+                            <div class="col-sm-2 col-sm-offset-3">
+                                <h:commandButton action="#{AccountController.cancelappointmentPatient()}" value="Cancel Appointment" class="form-control btn btn-primary"></h:commandButton>
+                            </div>
+                        </div>
+                    </div>
+    </h:form>
+</h:body>
+
+</html>

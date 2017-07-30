@@ -60,6 +60,14 @@ public class AccountController {
 	public String booking_dept;
 	public ArrayList<String> deptlist;
 	public ArrayList<ArrayList<String>> appointments;
+<<<<<<< Updated upstream
+	public String current_patient;
+	public String disease;
+	public String prescriptions;
+	public String remarks;
+	public String current_patient_id;
+	public ArrayList<ArrayList<String>> medicalhistory;
+=======
 	public Date appointment_booking_date = Calendar.getInstance().getTime();
         public String patientId;
         public ArrayList<ArrayList<String>> availableDoctors;
@@ -67,12 +75,17 @@ public class AccountController {
         public String appointmentDate;
         public String doctorName;
         public String departmentName;
-	public String current_patient;
-	public String disease;
-	public String prescriptions;
-	public String remarks;
-	public String current_patient_id;
-	public ArrayList<ArrayList<String>> medicalhistory;
+
+
+	
+       /*
+     * GETTERS AND SETTERS
+     */ 
+        
+    public String getAppointmentID() {
+        return appointmentID;
+    }
+>>>>>>> Stashed changes
 
 	
 	
@@ -83,63 +96,56 @@ public class AccountController {
 	 */
 	
 	
-
 	
-       /*
-     * GETTERS AND SETTERS
-     */ 
-        
-    public String getAppointmentID() {
-        return appointmentID;
-    }
+	
+	
+	public String getErrorMessage() {
+		return errorMessage;
+	}
 
-    public void setAppointmentID(String appointmentID) {
-        this.appointmentID = appointmentID;
-    }
+	public ArrayList<ArrayList<String>> getMedicalhistory() {
+		return medicalhistory;
+	}
 
-    public String getAppointmentDate() {
-        return appointmentDate;
-    }
+	public void setMedicalhistory(ArrayList<ArrayList<String>> medicalhistory) {
+		this.medicalhistory = medicalhistory;
+	}
 
-    public void setAppointmentDate(String appointmentDate) {
-        this.appointmentDate = appointmentDate;
-    }
+	public String getCurrent_patient_id() {
+		return current_patient_id;
+	}
 
-    public String getDoctorName() {
-        return doctorName;
-    }
+	public void setCurrent_patient_id(String current_patient_id) {
+		this.current_patient_id = current_patient_id;
+	}
 
-    public void setDoctorName(String doctorName) {
-        this.doctorName = doctorName;
-    }
+	public String getRemarks() {
+		return remarks;
+	}
 
-    public String getDepartmentName() {
-        return departmentName;
-    }
+	public void setRemarks(String remarks) {
+		this.remarks = remarks;
+	}
 
-    
-    public void setDepartmentName(String departmentName) {
-        this.departmentName = departmentName;
-    }
+	public String getDisease() {
+		return disease;
+	}
 
-    public ArrayList<ArrayList<String>> getAvailableDoctors() {
-        return availableDoctors;
-    }
+	public void setDisease(String disease) {
+		this.disease = disease;
+	}
 
-    public void setAvailableDoctors(ArrayList<ArrayList<String>> availableDoctors) {
-        this.availableDoctors = availableDoctors;
-    }   
-        public String getPatientId() {
-        return patientId;
-    }
+	public String getPrescriptions() {
+		return prescriptions;
+	}
 
-    public void setPatientId(String patientId) {
-        this.patientId = patientId;
-    }
-        
-    public Date getAppointment_booking_date() {
-        return appointment_booking_date;
-    }
+	public void setPrescriptions(String prescriptions) {
+		this.prescriptions = prescriptions;
+	}
+
+	public String getCurrent_patient() {
+		return current_patient;
+	}
 
     public void setAppointment_booking_date(Date appointment_booking_date) {
         this.appointment_booking_date = appointment_booking_date;
@@ -893,57 +899,8 @@ public class AccountController {
 		this.current_patient_id = patientID;
 		redirect("diagnosis.xhtml");
 	}
-                
-        public void checkAppointmentsPatient()
-        {
-            // check for already booked appointments
-            AccountModel accountModel = new AccountModel();
-            ArrayList<String> arr = accountModel.getPatientDetails(this.account.getUsername());
-            this.setPatientId(arr.get(0));;
-            if(accountModel.alreadyBookedAppointment(this.patientId)) {
-                this.redirect("view_appointment.xhtml");
-            }
-        }
-        
-        public void showDoctorsList()
-        {
-            String dept = this.booking_dept;
-            Date app_date = this.appointment_booking_date;
-            AccountModel accountModel = new AccountModel();
-            this.availableDoctors = accountModel.getAvailableDoctorsList(dept, app_date);
-            System.out.println(this.availableDoctors);
-        }
-        
-        public void bookAppointment(String date, String docId, String deptId, String slots)
-        {
-            System.out.println("Called");
-            AccountModel accountModel = new AccountModel();
-            ArrayList<String> arr = accountModel.getPatientDetails(this.account.getUsername());
-            System.out.println(this.patientId + " " + date + " " + docId + " " + deptId + " " + arr.get(1) + " " + Integer.parseInt(slots));
-            accountModel.addAppointmenttoTable(this.patientId, date, docId, deptId, arr.get(1), Integer.parseInt(slots));
-            this.redirect("view_appointment.xhtml");
-        }
-        
-        public void loadAppointment()
-        {
-            AccountModel accountModel = new AccountModel();
-            ArrayList<String> arr = accountModel.getAppointmentDetailsPatient(this.account.getUsername());
-            this.appointmentID = arr.get(0);
-            this.appointmentDate = arr.get(1);
-            this.doctorName = arr.get(2);
-            this.departmentName = arr.get(3);
-        }
-        
-        public void loadmedicalhistory()
-	 {
-		 String patientID = this.current_patient_id;
-			//load the appointments for this doc
-			AccountModel accountModel = new AccountModel();
-			this.medicalhistory = accountModel.getMedicalHistory(patientID);
-			System.out.println(this.medicalhistory);
-	 }
-        
-        public void loadProfileDoc()
+	
+	public void loadProfileDoc()
 	{
                 AccountModel accountModel = new AccountModel();
                 if(this.account.getUsername() == null)
@@ -961,8 +918,7 @@ public class AccountController {
                 this.semail = arr.get(5);
                 this.sphone = arr.get(3);
 	}
-        
-        public void updateDetailsdoc()
+	 public void updateDetailsdoc()
 		{
 	                
 		 AccountModel accountModel = new AccountModel();
@@ -984,7 +940,14 @@ public class AccountController {
 		 redirect("doctor.xhtml");
 	 }
 	 
-	
+	 public void loadmedicalhistory()
+	 {
+		 String patientID = this.current_patient_id;
+			//load the appointments for this doc
+			AccountModel accountModel = new AccountModel();
+			this.medicalhistory = accountModel.getMedicalHistory(patientID);
+			System.out.println(this.medicalhistory);
+	 }
 	 
 	 public void api()
 	 {
@@ -1004,66 +967,6 @@ public class AccountController {
 			System.out.println(this.medicalhistory);
 		redirect("response.xhtml");
 	 }
-         
-         public void cancelappointmentPatient()
-	{
-		//the doctor cancels the appointment for a patient
-		AccountModel accountModel = new AccountModel();
-		accountModel.cancelappointment(this.patientId);
-		
-		
-		//send EMAIL to patient ... to be added
-		/*
-		 * 	ADDITION HERE
-		 * 
-		 */
-		
-		String from = "hmsinfosyshackathon@gmail.com";
-		 String password = "hmsinfosys";
-		 String to = accountModel.getPatientEmail(this.patientId);
-		 String sub = "Appointment Cancelled";
-		 String msg = "Hi "  + "!\n\n" + "Your Appointment has been cancelled successfully.";
-		 
-			System.out.println(msg);
-		 
-		 
-		 Properties props = new Properties();    
-        props.put("mail.smtp.host", "smtp.gmail.com");    
-        props.put("mail.smtp.socketFactory.port", "465");    
-        props.put("mail.smtp.socketFactory.class",    
-                  "javax.net.ssl.SSLSocketFactory");    
-        props.put("mail.smtp.auth", "true");   
-        props.put("mail.smtp.port", "465");    
-        //get Session   
-        Session session = Session.getDefaultInstance(props,    
-         new javax.mail.Authenticator() {    
-         protected PasswordAuthentication getPasswordAuthentication() {    
-         return new PasswordAuthentication(from,password);  
-         }    
-        });    
-        //compose message    
-        try {    
-         MimeMessage message = new MimeMessage(session);    
-         message.addRecipient(Message.RecipientType.TO,new InternetAddress(to));    
-         message.setSubject(sub);    
-         message.setText(msg);    
-         //send message  
-         Transport.send(message);    
-         System.out.println("message sent successfully");    
-        } catch (MessagingException e) {throw new RuntimeException(e);} 
-		
-	}
-         
-         public void loadpatientmedicalhistory()
-	 {
-		 String patientID = this.patientId;
-                 System.out.println("Patient id: "+patientID);
-			//load the appointments for this doc
-			AccountModel accountModel = new AccountModel();
-			this.medicalhistory = accountModel.getMedicalHistory(patientID);
-			System.out.println(this.medicalhistory);
-	 }
-
 }
 
 

@@ -38,24 +38,48 @@
   	<f:event listener="#{AccountController.verifyLoginOnWelcome()}" type="preRenderView"></f:event>
   	<f:event listener="#{AccountController.verifypatientOnWelcome()}" type="preRenderView"></f:event>
   	<f:event listener="#{AccountController.loaddeptlist()}" type="preRenderView"></f:event>
+        <f:event listener="#{AccountController.checkAppointmentsPatient()}" type="preRenderView"></f:event>
   </f:metadata>
 </h:head>
 
 	<h:body>
 		
 		<ui:include src="header_patient.xhtml" />
+                <div class="container">
 		<h:form>
-		
-			<h:selectOneMenu value = "#{AccountController.booking_dept}"> 
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-sm-6 col-sm-offset-3">
+                        <label for="book_dept">Select Department:</label>
+			<h:selectOneMenu value = "#{AccountController.booking_dept}" id="book_dept" class="form-control"> 
   				<f:selectItems value = "#{AccountController.deptlist}"/> 
 			</h:selectOneMenu> 
-			<br/>
-			<h:commandButton value="Book an appointment" action="booking.xhtml"></h:commandButton>
+                        </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-sm-6 col-sm-offset-3">
+                        <label for="date_select">Select Date:</label>
+                        <p:calendar id="date_select" value="#{AccountController.appointment_booking_date}" mode="inline" />
+                        </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-sm-2 col-sm-offset-3">
+			<h:commandButton action="book_appointment.xhtml" value="Book an appointment" class="form-control btn btn-primary"></h:commandButton>
+                            </div>
+                        </div>
+                    </div>
+                        
+                    
 		</h:form>
 		<p style="color:red">
 			#{AccountController.errorMessage}
-			<h:messages style="color:red;margin:8px;" /> 
+                <h:messages style="color:red;margin:8px;" /> 
 		</p>
+                </div>>
 	</h:body>
 
 </html>
