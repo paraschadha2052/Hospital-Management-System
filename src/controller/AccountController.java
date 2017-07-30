@@ -60,6 +60,11 @@ public class AccountController {
 	public String booking_dept;
 	public ArrayList<String> deptlist;
 	public ArrayList<ArrayList<String>> appointments;
+	public String current_patient;
+	public String disease;
+	public String prescriptions;
+	public String remarks;
+	public String current_patient_id;
 	
 	
 	
@@ -73,6 +78,46 @@ public class AccountController {
 	
 	public String getErrorMessage() {
 		return errorMessage;
+	}
+
+	public String getCurrent_patient_id() {
+		return current_patient_id;
+	}
+
+	public void setCurrent_patient_id(String current_patient_id) {
+		this.current_patient_id = current_patient_id;
+	}
+
+	public String getRemarks() {
+		return remarks;
+	}
+
+	public void setRemarks(String remarks) {
+		this.remarks = remarks;
+	}
+
+	public String getDisease() {
+		return disease;
+	}
+
+	public void setDisease(String disease) {
+		this.disease = disease;
+	}
+
+	public String getPrescriptions() {
+		return prescriptions;
+	}
+
+	public void setPrescriptions(String prescriptions) {
+		this.prescriptions = prescriptions;
+	}
+
+	public String getCurrent_patient() {
+		return current_patient;
+	}
+
+	public void setCurrent_patient(String current_patient) {
+		this.current_patient = current_patient;
 	}
 
 	public ArrayList<ArrayList<String>> getAppointments() {
@@ -761,9 +806,11 @@ public class AccountController {
         } catch (MessagingException e) {throw new RuntimeException(e);} 
 		
 	}
-	public void diagnose(String patientID)
+	public void diagnose(String patientID,String name)
 	{
-		redirect("diagnose.xhtml");
+		this.current_patient = name;
+		this.current_patient_id = patientID;
+		redirect("diagnosis.xhtml");
 	}
 	
 	public void loadProfileDoc()
@@ -790,6 +837,21 @@ public class AccountController {
 		 AccountModel accountModel = new AccountModel();
 	     accountModel.updateDetailsdoc(this.fname, this.age,this.gender,this.address,this.susername,this.semail,this.sphone,this.account.getUsername());
 		}
+	 
+	 public void submitreport()
+	 {
+		 String patientID = this.current_patient_id;
+		 AccountModel accountModel = new AccountModel();
+		 Date today = Calendar.getInstance().getTime();
+		 String today1 = today.toString();
+		 String deptID = accountModel.getdeptid(this.account.getUsername());
+		 accountModel.submitreport(patientID,this.disease,this.prescriptions,this.remarks,today1,deptID);
+		 
+		 
+		 //remove from appointments
+		 accountModel.removeappointment(patientID);
+		 redirect("doctor.xhtml");
+	 }
 }
 
 

@@ -53,7 +53,7 @@
 	        </p:column>
 	   		<p:column headerText="Patient's Name">
 	   			<h:form>
-	        		<h:commandLink value = "#{pid[5]}" action = "#{AccountController.diagnose(pid[1])}"></h:commandLink>
+	        		<h:commandLink value = "#{pid[5]}" action = "#{AccountController.diagnose(pid[1],pid[5])}"></h:commandLink>
 	        	</h:form>
 	        	
 	    	</p:column>

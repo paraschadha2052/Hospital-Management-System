@@ -428,4 +428,67 @@ public class AccountModel {
     			System.out.println(e);  
     		}
         }
+        public String getdeptid(String username)
+        {
+        	String tmp = "";
+    		String query = "select deptID from doctors where uname = \"";
+    		query += username;
+    		query += "\"";
+    		System.out.println(query);
+    		try{  
+    			Class.forName("com.mysql.jdbc.Driver");     
+    			Connection con = DriverManager.getConnection( "jdbc:mysql://localhost:3306/HMS","root",pass);  
+    			PreparedStatement stmt = con.prepareStatement(query);  
+    			ResultSet rs = stmt.executeQuery();
+    			System.out.println(rs);
+    			while(rs.next())
+    			{
+    				tmp = rs.getString(1);
+    				System.out.println(tmp);
+    				
+    			}
+    			con.close();
+    			
+    		}
+    		catch(Exception e)
+    		{  
+    			System.out.println(e);  
+    		}
+    		return tmp;
+        }
+        
+        
+        public void submitreport(String patientID,String disease,String prescription,String remarks,String date,String deptID)
+        {
+    		try{
+    			String query = "insert into patientinfo values(" + patientID + ",'" + disease + "','" + prescription + "','" + remarks + "','" + date + "'," + deptID + ")";
+    			Class.forName("com.mysql.jdbc.Driver");     
+    			System.out.println(query);
+    			Connection con = DriverManager.getConnection( "jdbc:mysql://localhost:3306/HMS","root",pass);  
+    			PreparedStatement stmt = con.prepareStatement(query);  
+    			stmt.executeUpdate();
+    			con.close();
+    		}
+    		catch(Exception e)
+    		{  
+    			System.out.println(e);  
+    		}
+        }
+        
+        public void removeappointment(String patientID)
+        {
+        	try{
+    			String query = "delete from appointments where patientID =" + patientID;
+    			Class.forName("com.mysql.jdbc.Driver");     
+    			System.out.println(query);
+    			Connection con = DriverManager.getConnection( "jdbc:mysql://localhost:3306/HMS","root",pass);  
+    			PreparedStatement stmt = con.prepareStatement(query);  
+    			stmt.executeUpdate();
+    			con.close();
+    		}
+    		catch(Exception e)
+    		{  
+    			System.out.println(e);  
+    		}
+        }
 }
