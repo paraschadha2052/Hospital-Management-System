@@ -703,7 +703,62 @@ public class AccountController {
 	{
 		String doc = this.account.getUsername();
 		//load the appointments for this doc
+		AccountModel accountModel = new AccountModel();
+		this.appointments = accountModel.getAppointments(doc);
+		System.out.println(this.appointments);
 		
+	}
+	public void cancelappointment(String patientID)
+	{
+		//the doctor cancels the appointment for a patient
+		AccountModel accountModel = new AccountModel();
+		accountModel.cancelappointment(patientID);
+		
+		
+		//send EMAIL to patient ... to be added
+		/*
+		 * 	ADDITION HERE
+		 * 
+		 */
+		
+		String from = "hmsinfosyshackathon@gmail.com";
+		 String password = "hmsinfosys";
+		 String to = accountModel.getPatientEmail(patientID);
+		 String sub = "Appointment Cancelled";
+		 String msg = "Hi "  + "!\n\n" + "Sorry , but the doctor has cancelled your appointment , please rebook your appointment";
+		 
+			System.out.println(msg);
+		 
+		 
+		 Properties props = new Properties();    
+        props.put("mail.smtp.host", "smtp.gmail.com");    
+        props.put("mail.smtp.socketFactory.port", "465");    
+        props.put("mail.smtp.socketFactory.class",    
+                  "javax.net.ssl.SSLSocketFactory");    
+        props.put("mail.smtp.auth", "true");   
+        props.put("mail.smtp.port", "465");    
+        //get Session   
+        Session session = Session.getDefaultInstance(props,    
+         new javax.mail.Authenticator() {    
+         protected PasswordAuthentication getPasswordAuthentication() {    
+         return new PasswordAuthentication(from,password);  
+         }    
+        });    
+        //compose message    
+        try {    
+         MimeMessage message = new MimeMessage(session);    
+         message.addRecipient(Message.RecipientType.TO,new InternetAddress(to));    
+         message.setSubject(sub);    
+         message.setText(msg);    
+         //send message  
+         Transport.send(message);    
+         System.out.println("message sent successfully");    
+        } catch (MessagingException e) {throw new RuntimeException(e);} 
+		
+	}
+	public void diagnose(String patientID)
+	{
+		redirect("diagnose.xhtml");
 	}
 }
 

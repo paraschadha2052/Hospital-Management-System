@@ -47,26 +47,27 @@
 	
 		<ui:include src="header.xhtml" />
 	    <p style="padding-top:1%; text-align:center"> Today's Appointments </p><br/><br/>
-		<p:dataTable var="pid" value="#{dtBasicView.cars}">
-        <p:column headerText="Patient Id">
-        <h:outputText value="#" />
-        </p:column>
-   		<p:column headerText="Patient's Name">
-        <h:outputText value="#" />
-    	</p:column>
- 		<p:column headerText="Date">
-        <h:outputText value="#" />
-        </p:column>
- 		<p:column headerText="Cancel">
-        <h:outputText value="#" />
-    	</p:column>
+		<p:dataTable var="pid" value="#{AccountController.appointments}">
+	        <p:column headerText="Patient Id">
+	        	#{pid[1]}
+	        </p:column>
+	   		<p:column headerText="Patient's Name">
+	   			<h:form>
+	        		<h:commandLink value = "#{pid[5]}" action = "#{AccountController.diagnose(pid[1])}"></h:commandLink>
+	        	</h:form>
+	        	
+	    	</p:column>
+	 		<p:column headerText="Date">
+	        	#{pid[2]}
+	        </p:column>
+	 		<p:column headerText="Cancel">
+	        	<h:form>
+	        		<h:commandLink value = "cancel appointment" action = "#{AccountController.cancelappointment(pid[1])}"></h:commandLink>
+	        	</h:form>
+	    	</p:column>
 		</p:dataTable> 
-			<br/>
-			<h:commandButton value="Reschedule an appointment" action="booking.xhtml" style="align:center;"></h:commandButton>
-		<p style="color:red">
-			#{AccountController.errorMessage}
-			<h:messages style="color:red;margin:8px;" /> 
-		</p>
+			
+		
 	</h:body>
 
 </html>
