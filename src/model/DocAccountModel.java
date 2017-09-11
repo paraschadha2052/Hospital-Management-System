@@ -111,9 +111,7 @@ public class DocAccountModel {
 				tmp = rs.getString(1);
 				System.out.println(tmp);
 				
-			}
-			con.close();
-			
+			}			
 		}
 		catch(Exception e)
 		{  
@@ -144,7 +142,6 @@ public class DocAccountModel {
                             System.out.println(tmp);
 
                     }
-                    con.close();
                 }
                 catch(Exception e)
                 {  
@@ -166,7 +163,6 @@ public class DocAccountModel {
                     con = DriverManager.getConnection( "jdbc:mysql://localhost:3306/HMS","root",pass);  
                     stmt = con.prepareStatement(query);  
                     stmt.executeUpdate();
-                    con.close();
             }
             catch(Exception e) {
                     System.out.println(e);  
