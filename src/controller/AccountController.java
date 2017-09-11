@@ -834,7 +834,7 @@ public class AccountController {
 	{
 		String doc = this.account.getUsername();
 		//load the appointments for this doc
-		AccountModel accountModel = new AccountModel();
+		DocAccountModel accountModel = new DocAccountModel();
 		this.appointments = accountModel.getAppointments(doc);
 		System.out.println(this.appointments);
 		
@@ -909,7 +909,7 @@ public class AccountController {
         {
             String dept = this.booking_dept;
             Date app_date = this.appointment_booking_date;
-            AccountModel accountModel = new AccountModel();
+            DocAccountModel accountModel = new DocAccountModel();
             this.availableDoctors = accountModel.getAvailableDoctorsList(dept, app_date);
             System.out.println(this.availableDoctors);
         }
@@ -945,7 +945,7 @@ public class AccountController {
         
         public void loadProfileDoc()
 	{
-                AccountModel accountModel = new AccountModel();
+                DocAccountModel accountModel = new DocAccountModel();
                 if(this.account.getUsername() == null)
                 {
                 	return;
@@ -965,8 +965,8 @@ public class AccountController {
         public void updateDetailsdoc()
 		{
 	                
-		 AccountModel accountModel = new AccountModel();
-	     accountModel.updateDetailsdoc(this.fname, this.age,this.gender,this.address,this.susername,this.semail,this.sphone,this.account.getUsername());
+		 DocAccountModel accountModel = new DocAccountModel();
+                 accountModel.updateDetailsdoc(this.fname, this.age,this.gender,this.address,this.susername,this.semail,this.sphone,this.account.getUsername());
 		}
 	 
 	 public void submitreport()
