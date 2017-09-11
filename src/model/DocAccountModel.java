@@ -13,7 +13,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 public class DocAccountModel {
-	private String pass = "chandigarh";
+	private String pass = "";
 	
     private static void closeAll(ResultSet rs, PreparedStatement ps, Connection conn)
     {

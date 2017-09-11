@@ -12,7 +12,7 @@ import java.util.Calendar;
 
 public class AccountModel {
 
-	private String pass = "chandigarh";
+	private String pass = "";
 
 	private static void closeAll(ResultSet rs, PreparedStatement ps, Connection conn)
     {
