@@ -18,12 +18,9 @@ public class Account {
 		this.password = password;
 	}
 	public Account(String username, String password) {
-		super();
 		this.username = username;
 		this.password = password;
 	}
-	public Account() {
-		super();
-	}
+	public Account() {}
 
 }
