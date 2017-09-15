@@ -19,7 +19,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 public class DocAccountModel {
-	private String pass = "";
+	private String pass = "anshgarg@123";
 	
     private static void closeAll(ResultSet rs, PreparedStatement ps, Connection conn)
     {
