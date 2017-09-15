@@ -1,0 +1,26 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"  
+	  xmlns:f="http://xmlns.jcp.org/jsf/core"
+	  xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+<head>
+  <title><ui:insert name="title">Default title</ui:insert></title>
+  <f:metadata>
+  	<f:event listener="#{AccountController.verifyLoginOnWelcome()}" type="preRenderView"></f:event>
+  	<f:event listener="#{AccountController.verifypatientOnWelcome()}" type="preRenderView"></f:event>
+  </f:metadata>
+</head>
+
+<body>
+<p>Welcome , #{AccountController.account.username}</p>
+<h:form>
+	
+	<h:commandButton action = "#{AccountController.logout()}" value = "LOGOUT"/>	
+</h:form>
+
+
+</body>
+
+</html>

@@ -1,0 +1,75 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"  
+	  xmlns:f="http://xmlns.jcp.org/jsf/core"
+	  xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+	  xmlns:p="http://primefaces.org/ui">
+<h:head>
+  <title>Appointment booking</title>
+  <style type="text/css">
+      .form-commandLink-nav {
+        color: #ffffff;
+        padding-top: 19.5px;
+        padding-bottom: 19.5px;
+        padding-left: 15px;
+        padding-right: 15px;
+        line-height: 21px;
+        position: relative;
+        display: block;
+        text-decoration: none;
+        background-color: transparent;
+        outline: 0;
+        margin-bottom: 0;
+      }
+      .form-commandLink-nav:hover {
+          color: #2c3e50;
+          background-color: transparent;
+          text-decoration: none;
+      }
+  </style>
+  <f:facet name="middle">
+            <h:outputStylesheet name="bootstrap/css/bootstrap.flatly.css" />
+            
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js" />
+            
+            <h:outputScript name="bootstrap/js/bootstrap.js" />
+        </f:facet>
+   <f:metadata>
+  	<f:event listener="#{AccountController.verifyLoginOnWelcome()}" type="preRenderView"></f:event>
+  	<f:event listener="#{AccountController.verifydoctorOnWelcome()}" type="preRenderView"></f:event>
+  	<f:event listener="#{AccountController.loadappointments()}" type="preRenderView"></f:event>
+  </f:metadata>
+</h:head>
+
+	<h:body>
+	
+		<ui:include src="header_doctor.xhtml" />
+	    <p style="padding-top:1%; text-align:center"> Today's Appointments </p><br/><br/>
+	    <div style="margin-left:10%;margin-right:10%">
+		<p:dataTable var="pid" value="#{AccountController.appointments}">
+	        <p:column headerText="Patient Id">
+	        	#{pid[1]}
+	        </p:column>
+	   		<p:column headerText="Patient's Name">
+	   			<h:form>
+	        		<h:commandLink value = "#{pid[5]}" action = "#{AccountController.diagnose(pid[1],pid[5])}"></h:commandLink>
+	        	</h:form>
+	        	
+	    	</p:column>
+	 		<p:column headerText="Date">
+	        	#{pid[2]}
+	        </p:column>
+	 		<p:column headerText="Cancel">
+	        	<h:form>
+	        		<h:commandLink value = "cancel appointment" action = "#{AccountController.cancelappointment(pid[1])}"></h:commandLink>
+	        	</h:form>
+	    	</p:column>
+		</p:dataTable> 
+		</div>
+		
+	</h:body>
+
+</html>
+

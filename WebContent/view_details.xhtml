@@ -1,0 +1,71 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"  
+	  xmlns:f="http://xmlns.jcp.org/jsf/core"
+	  xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+          xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>TODO supply a title</title>
+        <style type="text/css">
+            .form-commandLink-nav {
+              color: #ffffff;
+              padding-top: 19.5px;
+              padding-bottom: 19.5px;
+              padding-left: 15px;
+              padding-right: 15px;
+              line-height: 21px;
+              position: relative;
+              display: block;
+              text-decoration: none;
+              background-color: transparent;
+              outline: 0;
+              margin-bottom: 0;
+            }
+            .form-commandLink-nav:hover {
+                color: #2c3e50;
+                background-color: transparent;
+                text-decoration: none;
+            }
+        </style>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        
+        <f:facet name="middle">
+            <h:outputStylesheet name="bootstrap/css/bootstrap.flatly.css" />            
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js" />
+            <h:outputScript name="bootstrap/js/bootstrap.js" />
+        </f:facet>
+        <f:metadata>
+            <f:event listener="#{AccountController.loadpatientmedicalhistory()}" type="preRenderView"></f:event>
+        </f:metadata>
+    </h:head>
+    <h:body>
+        <ui:include src="header_patient.xhtml" />
+        <p:dataTable var="pid" value="#{AccountController.medicalhistory}">
+	        
+	   		<p:column headerText="Disease">
+	   			<h:form>
+	        		#{pid[1]}
+	        	</h:form>
+	        	
+	    	</p:column>
+	    	<p:column headerText="Prescriptions">
+	   			<h:form>
+	        		#{pid[2]}
+	        	</h:form>
+	        	
+	    	</p:column>
+	    	<p:column headerText="Remarks">
+	   			<h:form>
+	        		#{pid[3]}
+	        	</h:form>
+	        	
+	    	</p:column>
+	 		<p:column headerText="Date">
+	        	#{pid[4]}
+	        </p:column>
+	 		
+		</p:dataTable> 
+    </h:body>
+</html>
