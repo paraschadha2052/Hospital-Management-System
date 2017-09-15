@@ -20,7 +20,7 @@ public class AccountModel {
 	
 	private static Connection getConnection()
 	{
-		String pass = "anshgarg@123";
+		String pass = "";
 		Connection con = null;
 		try{
 			Class.forName("com.mysql.jdbc.Driver");     

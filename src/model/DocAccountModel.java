@@ -19,7 +19,20 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 public class DocAccountModel {
-	private String pass = "anshgarg@123";
+	private static Connection getConnection()
+	{
+		String pass = "";
+		Connection con = null;
+		try{
+			Class.forName("com.mysql.jdbc.Driver");     
+			con = DriverManager.getConnection( "jdbc:mysql://localhost:3306/HMS","root",pass);  
+		}
+		catch(Exception e)
+		{
+			System.out.println(e);
+		}
+		return con;
+	}
 	
     private static void closeAll(ResultSet rs, PreparedStatement ps, Connection conn)
     {
@@ -65,9 +78,7 @@ public class DocAccountModel {
                 PreparedStatement stmt=null;
 		try{
 			String query = "insert into doctors (uname,name,age,address,email,contact,deptID, gender) values('" + uname + "','"  + name + "','" + age + "','" + address + "','" + email + "','" + contact + "','" + DeptID + "','" + gender + "')" ;
-			Class.forName("com.mysql.jdbc.Driver");     
-			System.out.println(query);
-			con = DriverManager.getConnection( "jdbc:mysql://localhost:3306/HMS","root",pass);  
+			con = getConnection();
 			stmt = con.prepareStatement(query);  
 			stmt.executeUpdate();
 		}
@@ -85,9 +96,7 @@ public class DocAccountModel {
                 stmt=null;
 		try{
 			String query = "insert into users(uname,password,verified,category) values('" + uname + "','" + password + "','" + '0' + "','" + "doctor" + "')"; 
-			Class.forName("com.mysql.jdbc.Driver");     
-			System.out.println(query);
-			con = DriverManager.getConnection( "jdbc:mysql://localhost:3306/HMS","root",pass);  
+			con = getConnection();  
 			stmt = con.prepareStatement(query);  
 			stmt.executeUpdate();
 		}
@@ -110,8 +119,7 @@ public class DocAccountModel {
                 PreparedStatement stmt=null;
                 ResultSet rs=null;
 		try{  
-			Class.forName("com.mysql.jdbc.Driver");     
-			con = DriverManager.getConnection( "jdbc:mysql://localhost:3306/HMS","root",pass);  
+			con = getConnection();
 			stmt = con.prepareStatement(query);  
 			rs = stmt.executeQuery();
 			System.out.println(rs);
@@ -140,8 +148,7 @@ public class DocAccountModel {
                 PreparedStatement stmt=null;
                 ResultSet rs=null;
                 try {
-                    Class.forName("com.mysql.jdbc.Driver");     
-                    con = DriverManager.getConnection( "jdbc:mysql://localhost:3306/HMS","root",pass);  
+                	con = getConnection();
                     stmt = con.prepareStatement(query);  
                     rs = stmt.executeQuery();
                     System.out.println(rs);
@@ -167,9 +174,7 @@ public class DocAccountModel {
             PreparedStatement stmt=null;
             try {
                     String query = "update DoctorAvailability set slotsAvail = 0 where docID = " + docId + " AND date = '" + date + "'";
-                    Class.forName("com.mysql.jdbc.Driver");     
-                    System.out.println(query);
-                    con = DriverManager.getConnection( "jdbc:mysql://localhost:3306/HMS","root",pass);  
+                    con = getConnection(); 
                     stmt = con.prepareStatement(query);  
                     stmt.executeUpdate();
             }
@@ -191,8 +196,7 @@ public class DocAccountModel {
                 PreparedStatement stmt=null;
                 ResultSet rs=null;
     		try{  
-    			Class.forName("com.mysql.jdbc.Driver");     
-    			con = DriverManager.getConnection( "jdbc:mysql://localhost:3306/HMS","root",pass);  
+    			con = getConnection();  
     			stmt = con.prepareStatement(query);  
     			rs = stmt.executeQuery();
     			System.out.println(rs);
@@ -224,8 +228,7 @@ public class DocAccountModel {
                 PreparedStatement stmt=null;
                 ResultSet rs=null;
     		try{  
-    			Class.forName("com.mysql.jdbc.Driver");     
-    			con = DriverManager.getConnection( "jdbc:mysql://localhost:3306/HMS","root",pass);  
+    			con = getConnection(); 
     			stmt = con.prepareStatement(query);  
     			rs = stmt.executeQuery();
     			System.out.println(rs);
@@ -261,8 +264,7 @@ public class DocAccountModel {
                 PreparedStatement stmt=null;
                 ResultSet rs=null;
     		try{  
-    			Class.forName("com.mysql.jdbc.Driver");     
-    			con = DriverManager.getConnection( "jdbc:mysql://localhost:3306/HMS","root",pass);  
+    			con = getConnection();
     			stmt = con.prepareStatement(query);  
     			rs = stmt.executeQuery();
     			System.out.println(rs);
@@ -296,9 +298,7 @@ public class DocAccountModel {
                 PreparedStatement stmt=null;
     		try{
     			String query = "update doctors set name = '"+fname+"',age = "+age+",gender = '"+gender+"',address = '"+address+"',email = '"+semail+"',contact = '"+sphone+"' where uname = '"+uname+"';";
-    			Class.forName("com.mysql.jdbc.Driver");     
-    			System.out.println(query);
-    			con = DriverManager.getConnection( "jdbc:mysql://localhost:3306/HMS","root",pass);  
+    			con = getConnection(); 
     			stmt = con.prepareStatement(query);  
     			stmt.executeUpdate();
     		}
@@ -327,8 +327,7 @@ public class DocAccountModel {
             ResultSet rs=null, rs2=null;
            
             try{  
-                    Class.forName("com.mysql.jdbc.Driver");     
-                    con = DriverManager.getConnection( "jdbc:mysql://localhost:3306/HMS","root",pass);  
+            	con = getConnection(); 
                     stmt = con.prepareStatement(query);  
                     rs = stmt.executeQuery();
                     
