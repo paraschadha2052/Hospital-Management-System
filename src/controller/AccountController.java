@@ -71,12 +71,12 @@ public class AccountController {
 	public ArrayList<String> deptlist;
 	public ArrayList<ArrayList<String>> appointments;
 	public Date appointment_booking_date = Calendar.getInstance().getTime();
-        public String patientId;
-        public ArrayList<ArrayList<String>> availableDoctors;
-        public String appointmentID;
-        public String appointmentDate;
-        public String doctorName;
-        public String departmentName;
+    public String patientId;
+    public ArrayList<ArrayList<String>> availableDoctors;
+    public String appointmentID;
+    public String appointmentDate;
+    public String doctorName;
+    public String departmentName;
 	public String current_patient;
 	public String disease;
 	public String prescriptions;
