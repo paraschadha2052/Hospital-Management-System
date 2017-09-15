@@ -711,6 +711,7 @@ public class AccountController {
 				
 				this.account.setUsername(this.susername);
 				this.account.setPassword(this.spass);
+				/*Login is being called Login function handles the error for non -verified user accounts , it will throw the error message if account is not verified and user is redirected to login page so that he can login once he verified his account*/
 				this.login();
 				
 				
