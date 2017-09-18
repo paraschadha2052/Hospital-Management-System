@@ -13,6 +13,7 @@ import org.primefaces.context.RequestContext;
 import entities.Account;
 import model.AccountModel;
 import model.DocAccountModel;
+import model.EmailService;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Calendar;
@@ -628,6 +629,7 @@ public class AccountController {
 	{
 
 		AccountModel accountModel = new AccountModel();
+		EmailService email = new EmailService();
 		String pass1 = this.spass;
 		String pass2 = this.spassre;
 		//check if username exists already
@@ -660,54 +662,30 @@ public class AccountController {
 				String username = this.susername;
 				//hash username
 				try{
-				String text = username;
-				String key = "Bar12345Bar12345";
-				Key aesKey = new SecretKeySpec(key.getBytes(), "AES");
-				Cipher cipher = Cipher.getInstance("AES");
-				cipher.init(Cipher.ENCRYPT_MODE, aesKey);
-				byte[] encrypted = cipher.doFinal(text.getBytes());
-				Base64.Encoder encoder = Base64.getEncoder();
-				String encryptedString = encoder.encodeToString(encrypted);
-				System.out.println(encryptedString);
-				username = encryptedString;
-				}catch(Exception e)
+					String text = username;
+					String key = "Bar12345Bar12345";
+					Key aesKey = new SecretKeySpec(key.getBytes(), "AES");
+					Cipher cipher = Cipher.getInstance("AES");
+					cipher.init(Cipher.ENCRYPT_MODE, aesKey);
+					byte[] encrypted = cipher.doFinal(text.getBytes());
+					Base64.Encoder encoder = Base64.getEncoder();
+					String encryptedString = encoder.encodeToString(encrypted);
+					System.out.println(encryptedString);
+					username = encryptedString;
+				}
+				catch(Exception e)
 				{
 					System.out.println(e);
 				}
-				
 				
 				url = url + "?user=" + username;
 				System.out.println(url);
 				msg = msg + url;
 				String from = "hmsinfosyshackathon@gmail.com";
-				 String password = "hmsinfosys";
-				 String to = this.semail;
-				 String sub = "Account Verification";
-				Properties props = new Properties();    
-		         props.put("mail.smtp.host", "smtp.gmail.com");    
-		         props.put("mail.smtp.socketFactory.port", "465");    
-		         props.put("mail.smtp.socketFactory.class",    
-		                   "javax.net.ssl.SSLSocketFactory");    
-		         props.put("mail.smtp.auth", "true");   
-		         props.put("mail.smtp.port", "465");    
-		         //get Session   
-		         Session session = Session.getDefaultInstance(props,    
-		          new javax.mail.Authenticator() {    
-		          protected PasswordAuthentication getPasswordAuthentication() {    
-		          return new PasswordAuthentication(from,password);  
-		          }    
-		         });    
-		         //compose message    
-		         try {    
-		          MimeMessage message = new MimeMessage(session);    
-		          message.addRecipient(Message.RecipientType.TO,new InternetAddress(to));    
-		          message.setSubject(sub);    
-		          message.setText(msg);    
-		          //send message  
-		          Transport.send(message);    
-		          System.out.println("message sent successfully");    
-		         } catch (MessagingException e) {throw new RuntimeException(e);} 
-				
+				String password = "hmsinfosys";
+				String to = this.semail;
+				String sub = "Account Verification";
+				email.send(from, to, password, sub, msg);
 				
 				this.account.setUsername(this.susername);
 				this.account.setPassword(this.spass);
@@ -854,6 +832,7 @@ public class AccountController {
 	{
 		//the doctor cancels the appointment for a patient
 		AccountModel accountModel = new AccountModel();
+		EmailService email = new EmailService();
 		accountModel.cancelappointment(patientID);
 		
 		
@@ -864,38 +843,13 @@ public class AccountController {
 		 */
 		
 		String from = "hmsinfosyshackathon@gmail.com";
-		 String password = "hmsinfosys";
-		 String to = accountModel.getPatientEmail(patientID);
-		 String sub = "Appointment Cancelled";
-		 String msg = "Hi "  + "!\n\n" + "Sorry , but the doctor has cancelled your appointment , please rebook your appointment";
+		String password = "hmsinfosys";
+		String to = accountModel.getPatientEmail(patientID);
+		String sub = "Appointment Cancelled";
+		String msg = "Hi "  + "!\n\n" + "Sorry , but the doctor has cancelled your appointment , please rebook your appointment";
 		 
-			System.out.println(msg);
-		 
-		 
-		 Properties props = new Properties();    
-        props.put("mail.smtp.host", "smtp.gmail.com");    
-        props.put("mail.smtp.socketFactory.port", "465");    
-        props.put("mail.smtp.socketFactory.class",    
-                  "javax.net.ssl.SSLSocketFactory");    
-        props.put("mail.smtp.auth", "true");   
-        props.put("mail.smtp.port", "465");    
-        //get Session   
-        Session session = Session.getDefaultInstance(props,    
-         new javax.mail.Authenticator() {    
-         protected PasswordAuthentication getPasswordAuthentication() {    
-         return new PasswordAuthentication(from,password);  
-         }    
-        });    
-        //compose message    
-        try {    
-         MimeMessage message = new MimeMessage(session);    
-         message.addRecipient(Message.RecipientType.TO,new InternetAddress(to));    
-         message.setSubject(sub);    
-         message.setText(msg);    
-         //send message  
-         Transport.send(message);    
-         System.out.println("message sent successfully");    
-        } catch (MessagingException e) {throw new RuntimeException(e);} 
+		System.out.println(msg);
+		email.send(from, to, password, sub, msg);
 		
 	}
 	public void diagnose(String patientID,String name)
@@ -1030,38 +984,16 @@ public class AccountController {
 		 */
 		
 		String from = "hmsinfosyshackathon@gmail.com";
-		 String password = "hmsinfosys";
-		 String to = accountModel.getPatientEmail(this.patientId);
-		 String sub = "Appointment Cancelled";
-		 String msg = "Hi "  + "!\n\n" + "Your Appointment has been cancelled successfully.";
+		String password = "hmsinfosys";
+		String to = accountModel.getPatientEmail(this.patientId);
+		String sub = "Appointment Cancelled";
+		String msg = "Hi "  + "!\n\n" + "Your Appointment has been cancelled successfully.";
 		 
-			System.out.println(msg);
+		System.out.println(msg);
 		 
 		 
-		 Properties props = new Properties();    
-        props.put("mail.smtp.host", "smtp.gmail.com");    
-        props.put("mail.smtp.socketFactory.port", "465");    
-        props.put("mail.smtp.socketFactory.class",    
-                  "javax.net.ssl.SSLSocketFactory");    
-        props.put("mail.smtp.auth", "true");   
-        props.put("mail.smtp.port", "465");    
-        //get Session   
-        Session session = Session.getDefaultInstance(props,    
-         new javax.mail.Authenticator() {    
-         protected PasswordAuthentication getPasswordAuthentication() {    
-         return new PasswordAuthentication(from,password);  
-         }    
-        });    
-        //compose message    
-        try {    
-         MimeMessage message = new MimeMessage(session);    
-         message.addRecipient(Message.RecipientType.TO,new InternetAddress(to));    
-         message.setSubject(sub);    
-         message.setText(msg);    
-         //send message  
-         Transport.send(message);    
-         System.out.println("message sent successfully");    
-        } catch (MessagingException e) {throw new RuntimeException(e);} 
+		EmailService email = new EmailService();
+		email.send(from, to, password, sub, msg);
 		
 	}
          

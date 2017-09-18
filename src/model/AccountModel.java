@@ -362,7 +362,8 @@ public class AccountModel {
                 }
 		return list;
 	}
-        public ArrayList<String> getPatientDetails(String username)
+	
+	public ArrayList<String> getPatientDetails(String username)
 	{
 		ArrayList<String> list = new ArrayList<String>();
                 if(username==null){
@@ -398,8 +399,8 @@ public class AccountModel {
 		return list;
 	}
         
-        public boolean alreadyBookedAppointment(String patientID)
-        {
+    public boolean alreadyBookedAppointment(String patientID)
+    {
             boolean res = true;
             String query = "select * from appointments where patientID ='"+patientID+"'";
             System.out.println(query);
