@@ -5,10 +5,14 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"  
 	  xmlns:f="http://xmlns.jcp.org/jsf/core"
 	  xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
-	  xmlns:p="http://primefaces.org/ui">
+	  xmlns:p="http://primefaces.org/ui"
+	  xmlns:o="http://omnifaces.org/ui">
 <h:head>
   <title>Appointment booking</title>
+  <script type='text/javascript' src='resources/js/placeholders.min.js' ></script>
   <link type="text/css" rel="stylesheet" href="resources/css/style.css" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <f:facet name="middle">
             <h:outputStylesheet name="bootstrap/css/bootstrap.flatly.css" />
             
@@ -21,6 +25,12 @@
   	<f:event listener="#{AccountController.verifydoctorOnWelcome()}" type="preRenderView"></f:event>
   	<f:event listener="#{AccountController.loadappointments()}" type="preRenderView"></f:event>
   </f:metadata>
+  <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+   <o:conditionalComment if="lt IE 8">
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+   </o:conditionalComment>  
 </h:head>
 
 	<h:body>
