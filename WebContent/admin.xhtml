@@ -10,12 +10,13 @@
 
 <h:head>
   <title>Master Admin</title>
-  <script type="text/javascript" src="resources/js/login.js"/>
+  <script type="text/javascript" src="resources/js/login2.js"/>
   <script type='text/javascript' src='resources/js/placeholders.min.js' ></script>
   <script type="text/javascript">
   $(function() {
 
 	    $('#login-form-link').click(function(e) {
+	    	console.log('Add Doctor')
 	    	$( "#error1" ).html("");
 	    	$( "#error2" ).html("");
 	    	
@@ -26,6 +27,11 @@
 			e.preventDefault();
 		});
 		$('#register-form-link').click(function(e) {
+			//$( "#error1" ).html("");
+			str = document.getElementById("error2").innerHTML;
+			if(str.indexOf("Date") == -1)
+	    		$( "#error2" ).html("");
+			console.log('Update Availability')
 			$("#register-form").delay(100).fadeIn(100);
 	 		$("#login-form").fadeOut(100);
 			$('#login-form-link').removeClass('active');
@@ -39,9 +45,10 @@
   
   <link type="text/css" rel="stylesheet" href="resources/css/style.css" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <f:metadata>
+  	<f:event listener="#{AccountController.verifyLoginOnWelcome()}" type="preRenderView"></f:event>
+  	<f:event listener="#{AccountController.verifyAdminOnWelcome()}" type="preRenderView"></f:event>
   	<f:event listener="#{DocAccountController.loaddeptlist()}" type="preRenderView"></f:event>
   </f:metadata>
   <f:facet name="middle">
@@ -51,15 +58,13 @@
        
        <h:outputScript name="bootstrap/js/bootstrap.js" />
 	</f:facet>
-	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-   <o:conditionalComment if="lt IE 8">
+<o:conditionalComment if="lt IE 8">
     <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
   </o:conditionalComment>
 </h:head>
 
-<h:body>
+<h:body onload = "test2()">
 	<div class="jumbotron">
 		<center><h3>Hospital Management System</h3></center>	
 	</div>
@@ -83,7 +88,7 @@
 	    </div>
 	  </div>
 	</nav>
-
+	
 	<div class="container">
 		
 		<div class="row">
@@ -128,7 +133,8 @@
 										</div>
 									</div>
 									<div class="form-group">
-										<h:inputText value = "#{DocAccountController.age}" class="form-control" a:placeholder="Age" required="true" requiredMessage="Age is required"></h:inputText>
+					
+										<h:inputText value = "#{DocAccountController.age}" class="form-control" a:placeholder="Age" required="true" requiredMessage="Age is required" validatorMessage="Age must be an integer between 1 - 99"><f:validateRegex pattern = "^(0?[1-9]|[1-9][0-9])$"/></h:inputText>
 									</div>
 									<div class="form-group">
 										<h:inputText value = "#{DocAccountController.address}" class="form-control" a:placeholder="Address" required="true" requiredMessage="Address is required"></h:inputText>
@@ -136,9 +142,16 @@
 									<div class="form-group">
 										<h:inputText value = "#{DocAccountController.email}" id="email" class="form-control" a:placeholder="Email" required="true" requiredMessage="Email is required" validatorMessage="Email is not valid"><f:validateRegex pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]" /></h:inputText>
 									</div>
-									<div class="form-group">
-										<h:inputText value = "#{DocAccountController.contact}" class="form-control" a:placeholder="Mobile" required="true" requiredMessage="Mobile number is required" validatorMessage="Mobile number is not valid" a:maxlength="10"><f:validateRegex pattern="^[0-9]{10}$" /></h:inputText>
+									
+									<div class="form-group"> 
+										<div class="input-group">
+											<span class="input-group-addon">
+                                              	 +91
+                                           	</span>
+											<h:inputText value = "#{DocAccountController.contact}" class="form-control" a:placeholder="Mobile" required="true" requiredMessage="Mobile number is required" validatorMessage="Mobile number is not valid" a:maxlength="10"><f:validateRegex pattern="^[1-9]{10}$" /></h:inputText>
+										</div>
 									</div>
+									
 									<div class="form-group">
 										<h:inputSecret value = "#{DocAccountController.pass1}" id="password1" class="form-control" a:placeholder="Password" required="true" requiredMessage="Password is required"></h:inputSecret>
 									</div>
@@ -152,7 +165,16 @@
 											</div>
 										</div>
 									</div>
+									<div>
+									<center>
+									<div style="color:red" id="error1">
+										#{AccountController.errorMessage2}
+										<h:messages style="color:red;" /> 
+									</div>
+									</center>
+									</div>
 								</h:form>
+								
 								<h:form id="register-form" style="display: none;">
 									
 									<div class="form-group">
@@ -167,6 +189,14 @@
 												<h:commandButton id="register-submit" class="form-control btn btn-register" value="Update Availability" action="#{DocAccountController.addAvail()}"></h:commandButton>
 											</div>
 										</div>
+									</div>
+									<div>
+									<center>
+										<div style="color:red" id="error2">
+											#{AccountController.errorMessage2}
+											<h:messages style="color:red;" /> 
+										</div>
+									</center>
 									</div>
 								</h:form>
 								

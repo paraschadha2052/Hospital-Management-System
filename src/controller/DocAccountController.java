@@ -58,7 +58,7 @@ public class DocAccountController {
 	public String email;
 	public String pass1;
 	public String pass2;
-	public int age;
+	public String age;
 	public String uname;
 	public String date;
 	public String gender;
@@ -185,11 +185,11 @@ public class DocAccountController {
 		this.pass2 = pass2;
 	}
 
-	public int getAge() {
+	public String getAge() {
 		return age;
 	}
 
-	public void setAge(int age) {
+	public void setAge(String age) {
 		this.age = age;
 	}
 
@@ -224,7 +224,7 @@ public class DocAccountController {
 	}
 	public void emptyPropeties(){
 		this.address = "";
-		this.age = 0;
+		this.age = "";
 		this.contact = "";
 		this.deptName = "";
 		this.email = "";
@@ -277,7 +277,7 @@ public class DocAccountController {
 			{
 				//add entry to database
 //				String name = this.name;
-				docAccountModel.addDoc(this.uname, this.name, this.age, this.address, this.pass1, this.email, this.contact, this.deptID, this.gender);
+				docAccountModel.addDoc(this.uname, this.name, Integer.parseInt(this.age), this.address, this.pass1, this.email, this.contact, this.deptID, this.gender);
 				//send email verification link
 				String msg = "Hi Dr. " + this.name + "!\n\n" + "Please click the below link to verify your account : \n Your Login credentials: \n Username: " + this.uname + "\n Password: " + this.pass1 + "\n"; 
 				HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();

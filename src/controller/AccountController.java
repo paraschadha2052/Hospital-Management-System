@@ -760,6 +760,16 @@ public class AccountController {
 		}
 			
 	}
+	public void verifyAdminOnWelcome()
+	{
+		AccountModel accountModel = new AccountModel();
+		String role = accountModel.getcategory(this.account.getUsername());
+		if(!role.equals("admin"))
+		{
+			redirect("login.xhtml");
+		}
+			
+	}
 	public void verifypatientOnWelcome()
 	{
 		AccountModel accountModel = new AccountModel();
