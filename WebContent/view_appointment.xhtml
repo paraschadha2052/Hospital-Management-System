@@ -6,7 +6,7 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
       xmlns:p="http://primefaces.org/ui"
-	  xmlns:o="http://omnifaces.org/ui">
+      xmlns:o="http://omnifaces.org/ui">
 <h:head>
 	<script type='text/javascript' src='resources/js/placeholders.min.js' ></script>
     <link rel="stylesheet" type="text/css" href="resources/css/login.css"/>
@@ -18,8 +18,8 @@
     
   <title><ui:insert name="title">View Appointment</ui:insert></title>
   <f:metadata>
-            <f:event listener="#{AccountController.loadAppointment()}" type="preRenderView"></f:event>
-        </f:metadata>
+    <f:event listener="#{AccountController.loadAppointment()}" type="preRenderView"></f:event>
+  </f:metadata>
   <link type="text/css" rel="stylesheet" href="resources/css/style.css" />
   <f:facet name="middle">
             <h:outputStylesheet name="bootstrap/css/bootstrap.flatly.css" />            
@@ -36,19 +36,26 @@
 <h:body>
 <ui:include src="header_patient.xhtml" /><br/>
 <center><strong><p style="font-size:30px; font-family:Merriweather Sans"> Your Appointments </p></strong></center>
+
+<h:panelGroup layout="block" rendered="#{AccountController.appointmentExists eq true}">
 <p style="font-size:20px; font-family:Merriweather Sans; margin-left:10%"> Appointment ID: #{AccountController.appointmentID}</p>
 <p style="font-size:20px; font-family:Merriweather Sans; margin-left:10%"> Date: #{AccountController.appointmentDate}</p>
 <p style="font-size:20px; font-family:Merriweather Sans; margin-left:10%"> Doctor Name: #{AccountController.doctorName}</p>
 <p style="font-size:20px; font-family:Merriweather Sans; margin-left:10%"> Department: #{AccountController.departmentName}</p>
 <h:form>
-<div class="form-group">
-                        <div class="row">
-                            <div class="col-sm-2 col-sm-offset-3">
-                                <h:commandButton action="#{AccountController.cancelappointmentPatient()}" value="Cancel Appointment" class="form-control btn btn-primary"></h:commandButton>
-                            </div>
-                        </div>
-                    </div>
-    </h:form>
+    <div class="form-group">
+        <div class="row">
+            <div class="col-sm-2 col-sm-offset-3">
+                <h:commandButton action="#{AccountController.cancelappointmentPatient(AccountController.appointmentID)}" value="Cancel Appointment" class="form-control btn btn-primary"></h:commandButton>
+            </div>
+        </div>
+    </div>
+</h:form>
+</h:panelGroup>
+
+<h:panelGroup layout="block" rendered="#{AccountController.appointmentExists eq false}">
+    <p style="font-size:20px; color: red; margin-left:10%">No appointment exists !</p>
+</h:panelGroup>
 </h:body>
 
 </html>

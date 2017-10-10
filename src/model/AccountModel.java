@@ -425,22 +425,74 @@ public class AccountModel {
         }
         
         public void cancelappointment(String patientID)
-        {
-                Connection con=null;
-                PreparedStatement stmt=null;
-    		try{
-    			String query = "delete from appointments where patientID = " + patientID;
-    			con = getConnection();  
-    			stmt = con.prepareStatement(query);  
-    			stmt.executeUpdate();
-    		}
-    		catch(Exception e)
-    		{  
-    			System.out.println(e);  
-    		}
-                finally{
-                    closeAll(null, stmt, con);
-                }
+        {  
+            Connection con=null;
+            PreparedStatement stmt=null;
+            try{
+                    String query = "delete from appointments where patientID = " + patientID;
+                    con = getConnection();  
+                    stmt = con.prepareStatement(query);  
+                    stmt.executeUpdate();
+            }
+            catch(Exception e)
+            {  
+                    System.out.println(e);
+            }
+            finally{
+                closeAll(null, stmt, con);
+            }
+        }
+        
+        public void cancelappointmentPatient(String appID)
+        {  
+            Connection con=null;
+            PreparedStatement stmt=null, stmt2=null, stmt3=null, stmt4=null;
+            String docID, query, date;
+            int curSlots;
+            ResultSet rs=null, rs2=null;
+            try{
+                con = getConnection(); 
+                query = "select * from appointments where appID = " + appID;
+                System.out.println(query);
+                stmt = con.prepareStatement(query); 
+                rs = stmt.executeQuery();
+                rs.next();
+                
+                date = rs.getString(3);
+                docID = rs.getString(4);
+                
+                System.out.println("cancelAppointmentPatient: docid: "+docID+" date: '"+date+"'");
+
+                query = "delete from appointments where appID = " + appID; 
+                System.out.println(query);
+                stmt2 = con.prepareStatement(query);  
+                stmt2.executeUpdate();
+                
+                query = "select * from DoctorAvailability where docID = " + docID+ " and date = '"+date+"'";
+                System.out.println(query);
+                stmt3 = con.prepareStatement(query); 
+                rs2 = stmt3.executeQuery();
+                rs2.next();
+                
+                curSlots = rs2.getInt(2);
+                System.out.println("cancelAppointmentPatient: slots: "+curSlots);
+
+                
+                query = "update DoctorAvailability set slotsAvail = "+(curSlots+1)+" where docID = " + docID+ " and date = '"+date+"'";
+                System.out.println(query);
+                stmt4 = con.prepareStatement(query);  
+                stmt4.executeUpdate();
+            }
+            catch(Exception e)
+            {  
+                    System.out.println(e);
+            }
+            finally{
+                closeAll(rs, stmt, null);
+                closeAll(rs2, stmt2, null);
+                closeAll(null, stmt3, null);
+                closeAll(null, stmt4, con);
+            }
         }
         
         public String getPatientEmail(String patientID)
@@ -644,13 +696,13 @@ public class AccountModel {
             ArrayList<String> list = new ArrayList<String>();
             System.out.println("**"+username);
             String pID, depID, docID, appID, tmp;
-            String query = "select * from patients where uname='"+username+"'";
+            String query = "select * from patients where uname='"+username+"';";
             System.out.println(query);
             Connection con=null;
             PreparedStatement stmt=null, stmt2=null, stmt3=null;
             ResultSet rs=null, rs2=null, rs3=null;
             try{  
-            		con = getConnection(); 
+            	    con = getConnection(); 
                     stmt = con.prepareStatement(query);  
                     rs = stmt.executeQuery();
                     if(rs.next()){
@@ -666,13 +718,15 @@ public class AccountModel {
                         
                         docID = rs.getString(4);
                         depID = rs.getString(5);
+                        System.out.println(rs.getString(1)+" "+rs.getString(3)+"docID= "+docID+" DeptID= "+depID);
                         
-                        query = "select * from doctors where docID = '"+docID+"';";
+                        query = "select * from doctors where docID = "+docID;
                         System.out.println(query);
                         stmt2 = con.prepareStatement(query);
-                        rs2 = stmt.executeQuery();
+                        rs2 = stmt2.executeQuery();
                         if(rs2.next()){
                             list.add(rs2.getString(2));
+                            System.out.println(rs2.getString(1)+" "+rs2.getString(2));
                         } else {
                             list.add("");
                         }
@@ -680,9 +734,10 @@ public class AccountModel {
                         query = "select * from departments where deptID = '"+depID+"';";
                         System.out.println(query);
                         stmt3 = con.prepareStatement(query);
-                        rs3 = stmt.executeQuery();
+                        rs3 = stmt3.executeQuery();
                         if(rs3.next()){
                             list.add(rs3.getString(2));
+                            System.out.println(rs3.getString(2));
                         } else {
                             list.add("");
                         }
@@ -706,5 +761,29 @@ public class AccountModel {
             return list;
         }
         
-       
+       public boolean existAppointment(String patientID){
+            Connection con=null;
+            PreparedStatement stmt=null;
+            ResultSet rs = null;
+            boolean ret = false;
+            System.out.println("existAppointment()");
+            try{
+                    String query = "select * from appointments where patientID = " + patientID;
+                    System.out.println(query);
+                    con = getConnection(); 
+                    stmt = con.prepareStatement(query);  
+                    rs = stmt.executeQuery();
+                    if(rs.next()){
+                        ret = true;
+                    }
+            }
+            catch(Exception e)
+            {  
+                    System.out.println(e);  
+            }
+            finally{
+                closeAll(rs, stmt, con);
+            }
+            return ret;
+       }
 }

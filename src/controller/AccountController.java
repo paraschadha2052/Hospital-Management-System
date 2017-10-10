@@ -84,9 +84,10 @@ public class AccountController {
 	public String remarks;
 	public String current_patient_id;
 	public ArrayList<ArrayList<String>> medicalhistory;
+        public boolean appointmentExists;
 
-	
-	
+
+
 	
 	
 	/*
@@ -99,6 +100,14 @@ public class AccountController {
        /*
      * GETTERS AND SETTERS
      */ 
+        
+    public boolean isAppointmentExists() {
+        return appointmentExists;
+    }
+
+    public void setAppointmentExists(boolean appointmentExists) {
+        this.appointmentExists = appointmentExists;
+    }
         
     public String getAppointmentID() {
         return appointmentID;
@@ -834,8 +843,6 @@ public class AccountController {
 		AccountModel accountModel = new AccountModel();
 		EmailService email = new EmailService();
 		accountModel.cancelappointment(patientID);
-		
-		
 		//send EMAIL to patient ... to be added
 		/*
 		 * 	ADDITION HERE
@@ -864,7 +871,7 @@ public class AccountController {
             // check for already booked appointments
             AccountModel accountModel = new AccountModel();
             ArrayList<String> arr = accountModel.getPatientDetails(this.account.getUsername());
-            this.setPatientId(arr.get(0));;
+            this.setPatientId(arr.get(0));
             if(accountModel.alreadyBookedAppointment(this.patientId)) {
                 this.redirect("view_appointment.xhtml");
             }
@@ -892,11 +899,19 @@ public class AccountController {
         public void loadAppointment()
         {
             AccountModel accountModel = new AccountModel();
-            ArrayList<String> arr = accountModel.getAppointmentDetailsPatient(this.account.getUsername());
-            this.appointmentID = arr.get(0);
-            this.appointmentDate = arr.get(1);
-            this.doctorName = arr.get(2);
-            this.departmentName = arr.get(3);
+            System.out.println("paras: Inside loadAppointment()");
+            if(accountModel.existAppointment(this.patientId)){
+                System.out.println("Called");
+                ArrayList<String> arr = accountModel.getAppointmentDetailsPatient(this.account.getUsername());
+                this.appointmentID = arr.get(0);
+                this.appointmentDate = arr.get(1);
+                this.doctorName = arr.get(2);
+                this.departmentName = arr.get(3);
+                this.appointmentExists = true;
+            }
+            else{
+                this.appointmentExists = false;
+            }
         }
         
         public void loadmedicalhistory()
@@ -970,11 +985,10 @@ public class AccountController {
 		redirect("response.xhtml");
 	 }
          
-         public void cancelappointmentPatient()
+         public void cancelappointmentPatient(String appID)
 	{
-		//the doctor cancels the appointment for a patient
 		AccountModel accountModel = new AccountModel();
-		accountModel.cancelappointment(this.patientId);
+		accountModel.cancelappointmentPatient(appID);
 		
 		
 		//send EMAIL to patient ... to be added
@@ -994,6 +1008,8 @@ public class AccountController {
 		 
 		EmailService email = new EmailService();
 		email.send(from, to, password, sub, msg);
+                
+                redirect("patient.xhtml");
 		
 	}
          
