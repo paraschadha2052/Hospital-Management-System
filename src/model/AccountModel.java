@@ -526,10 +526,10 @@ public class AccountModel {
     		return tmp;
         }
          
-        public String getdeptid(String username)
+        public String getdocid(String username)
         {
         	String tmp = "";
-    		String query = "select deptID from doctors where uname = \"";
+    		String query = "select docID from doctors where uname = \"";
     		query += username;
     		query += "\"";
     		System.out.println(query);
@@ -559,23 +559,23 @@ public class AccountModel {
         }
         
         
-        public void submitreport(String patientID,String disease,String prescription,String remarks,String date,String deptID)
+        public void submitreport(String patientID,String disease,String prescription,String remarks,String date,String docID)
         {
-                Connection con=null;
-                PreparedStatement stmt=null;
-    		try{
-    			String query = "insert into patientinfo values(" + patientID + ",'" + disease + "','" + prescription + "','" + remarks + "','" + date + "'," + deptID + ")";
-    			con = getConnection();
-    			stmt = con.prepareStatement(query);  
-    			stmt.executeUpdate();
-    		}
-    		catch(Exception e)
-    		{  
-    			System.out.println(e);  
-    		}
-                finally{
-                    closeAll(null, stmt, con);
-                }
+            Connection con=null;
+            PreparedStatement stmt=null;
+            try{
+                String query = "insert into patientinfo values(" + patientID + ",'" + disease + "','" + prescription + "','" + remarks + "','" + date + "'," + docID + ")";
+                con = getConnection();
+                stmt = con.prepareStatement(query);  
+                stmt.executeUpdate();
+            }
+            catch(Exception e)
+            {  
+                System.out.println(e);  
+            }
+            finally{
+                closeAll(null, stmt, con);
+            }
         }
         
         public void removeappointment(String patientID)
@@ -599,41 +599,55 @@ public class AccountModel {
         
         public ArrayList<ArrayList<String>> getMedicalHistory(String patientID)
     	{
-        	
-        	
-        	//now load his medical history
-        	String tmp,id;
-    		String query = "select * from patientinfo where patientID = " + patientID;
-    		System.out.println(query);
-    		ArrayList<ArrayList<String>> outer = new ArrayList<ArrayList<String>>();
-                Connection con=null;
-                PreparedStatement stmt=null;
-                ResultSet rs=null;
-    		try{  
-    			con = getConnection(); 
-    			stmt = con.prepareStatement(query);  
-    			rs = stmt.executeQuery();
-    			System.out.println(rs);
-    			
-    			ResultSetMetaData rsmd = rs.getMetaData();
-    			int columnsNumber = rsmd.getColumnCount();
-    			while (rs.next()) {
-    				ArrayList<String> inner = new ArrayList<String>(); 
-    			    for(int i=1; i<=columnsNumber; i++){
-    			       inner.add(rs.getString(i));
-    			    }    
-    			    outer.add(inner);               
-    			}
-    		}
-    		catch(Exception e)
-    		{  
-    			System.out.println(e);  
-    		}
-                finally{
-                    closeAll(rs, stmt, con);
+            //now load his medical history
+            String tmp,id;
+            String query = "select * from patientinfo where patientID = " + patientID;
+            System.out.println(query);
+            ArrayList<ArrayList<String>> outer = new ArrayList<ArrayList<String>>();
+            Connection con=null;
+            PreparedStatement stmt=null, stmt2=null, stmt3=null;
+            ResultSet rs=null, rs2=null, rs3=null;
+            try{  
+                con = getConnection(); 
+                stmt = con.prepareStatement(query);  
+                rs = stmt.executeQuery();
+                System.out.println(rs);
+
+                ResultSetMetaData rsmd = rs.getMetaData();
+                int columnsNumber = rsmd.getColumnCount();
+                while (rs.next()) {
+                    ArrayList<String> inner = new ArrayList<String>(); 
+                    for(int i=1; i<columnsNumber; i++){
+                       inner.add(rs.getString(i));
+                    }
+                    query = "select name, deptID from doctors where docID = "+rs.getString(6);
+                    stmt2 = con.prepareStatement(query);  
+                    rs2 = stmt2.executeQuery();
+                    if(rs2.next()){
+                        inner.add(rs2.getString(1));
+                    }
+                    
+                    query = "select deptName from departments where deptID = "+rs2.getString(2);
+                    stmt3 = con.prepareStatement(query);  
+                    rs3 = stmt3.executeQuery();
+                    if(rs3.next()){
+                        inner.add(rs3.getString(1));
+                    }
+                    
+                    outer.add(inner);               
                 }
-    		
-    		return outer;
+            }
+            catch(Exception e)
+            {  
+                    System.out.println(e);  
+            }
+            finally{
+                closeAll(rs, stmt, null);
+                closeAll(rs2, stmt2, null);
+                closeAll(rs3, stmt3, con);
+            }
+
+            return outer;
     	}
         
         public String getpatientIDfromuid(String uid)

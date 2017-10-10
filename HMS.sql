@@ -1,8 +1,8 @@
--- MySQL dump 10.16  Distrib 10.1.25-MariaDB, for Linux (x86_64)
+-- MySQL dump 10.13  Distrib 5.7.19, for Linux (x86_64)
 --
 -- Host: localhost    Database: HMS
 -- ------------------------------------------------------
--- Server version	10.1.25-MariaDB
+-- Server version	5.7.19
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -134,7 +134,7 @@ CREATE TABLE `patientinfo` (
   `prescription` varchar(500) DEFAULT NULL,
   `remarks` varchar(100) DEFAULT NULL,
   `date` varchar(100) DEFAULT NULL,
-  `deptID` int(11) DEFAULT NULL
+  `docID` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -144,7 +144,7 @@ CREATE TABLE `patientinfo` (
 
 LOCK TABLES `patientinfo` WRITE;
 /*!40000 ALTER TABLE `patientinfo` DISABLE KEYS */;
-INSERT INTO `patientinfo` VALUES (1,'fever','abc\r\nxyz','fwdfwfwds','Sun Jul 30 17:19:27 IST 2017',2),(1,'asd','adfa\r\nsdad','dafda','Sun Jul 30 17:21:27 IST 2017',3);
+INSERT INTO `patientinfo` VALUES (1,'fever','abc\r\nxyz','fwdfwfwds','Sun Jul 30 17:19:27 IST 2017',1),(1,'asd','adfa\r\nsdad','dafda','Sun Jul 30 17:21:27 IST 2017',2);
 /*!40000 ALTER TABLE `patientinfo` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -219,4 +219,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-07-30 17:43:59
+-- Dump completed on 2017-10-10 23:03:07

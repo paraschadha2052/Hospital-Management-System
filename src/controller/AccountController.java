@@ -916,11 +916,11 @@ public class AccountController {
         
         public void loadmedicalhistory()
 	 {
-		 String patientID = this.current_patient_id;
-			//load the appointments for this doc
-			AccountModel accountModel = new AccountModel();
-			this.medicalhistory = accountModel.getMedicalHistory(patientID);
-			System.out.println(this.medicalhistory);
+		String patientID = this.current_patient_id;
+                //load the appointments for this doc
+                AccountModel accountModel = new AccountModel();
+                this.medicalhistory = accountModel.getMedicalHistory(patientID);
+                System.out.println(this.medicalhistory);
 	 }
         
         public void loadProfileDoc()
@@ -951,17 +951,17 @@ public class AccountController {
 	 
 	 public void submitreport()
 	 {
-		 String patientID = this.current_patient_id;
-		 AccountModel accountModel = new AccountModel();
-		 Date today = Calendar.getInstance().getTime();
-		 String today1 = today.toString();
-		 String deptID = accountModel.getdeptid(this.account.getUsername());
-		 accountModel.submitreport(patientID,this.disease,this.prescriptions,this.remarks,today1,deptID);
-		 
-		 
-		 //remove from appointments
-		 accountModel.removeappointment(patientID);
-		 redirect("doctor.xhtml");
+            String patientID = this.current_patient_id;
+            AccountModel accountModel = new AccountModel();
+            Date today = Calendar.getInstance().getTime();
+            String today1 = today.toString();
+            String docID = accountModel.getdocid(this.account.getUsername());
+            accountModel.submitreport(patientID,this.disease,this.prescriptions,this.remarks,today1,docID);
+
+
+            //remove from appointments
+            accountModel.removeappointment(patientID);
+            redirect("doctor.xhtml");
 	 }
 	 
 	

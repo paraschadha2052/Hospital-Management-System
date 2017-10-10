@@ -32,30 +32,35 @@
     </h:head>
     <h:body>
         <ui:include src="header_patient.xhtml" />
-        <p:dataTable var="pid" value="#{AccountController.medicalhistory}">
-	        
-	   		<p:column headerText="Disease">
-	   			<h:form>
-	        		#{pid[1]}
-	        	</h:form>
-	        	
-	    	</p:column>
-	    	<p:column headerText="Prescriptions">
-	   			<h:form>
-	        		#{pid[2]}
-	        	</h:form>
-	        	
-	    	</p:column>
-	    	<p:column headerText="Remarks">
-	   			<h:form>
-	        		#{pid[3]}
-	        	</h:form>
-	        	
-	    	</p:column>
-	 		<p:column headerText="Date">
-	        	#{pid[4]}
-	        </p:column>
-	 		
-		</p:dataTable> 
+        <p:dataTable var="pid" value="#{AccountController.medicalhistory}">	        
+            <p:column headerText="Disease">
+                <h:form>
+                    #{pid[1]}
+                </h:form>
+            </p:column>
+            <p:column headerText="Doctor">
+                <h:form>
+                    #{pid[5]}
+                </h:form>
+            </p:column>
+            <p:column headerText="Department">
+                <h:form>
+                    #{pid[6]}
+                </h:form>
+            </p:column>
+            <p:column headerText="Prescriptions">
+                <h:form>
+                    #{pid[2]}
+                </h:form>
+            </p:column>
+            <p:column headerText="Remarks">
+                <h:form>
+                    #{pid[3]}
+                </h:form>	        	
+            </p:column>
+            <p:column headerText="Date">
+                #{pid[4]}
+            </p:column>	 		
+        </p:dataTable> 
     </h:body>
 </html>
