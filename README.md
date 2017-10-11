@@ -1,5 +1,5 @@
 # Hospital-Management-System
-A simple and user friendly Hospital Management System created using JSF during Hackathon 2017, Infosys, Chandigarh
+A simple and user friendly Hospital Management System created using JSF 2.0 during Hackathon 2017, Infosys, Chandigarh
 <br />
 ## Roles:
 * Patient
@@ -35,5 +35,5 @@ A simple and user friendly Hospital Management System created using JSF during H
 ## What's Next
 * Work Under Progress (Some modules are being worked upon)
 
-## Issues?
+## Any Issues?
 Found any Bug? Please feel free to report it. :)
