@@ -834,7 +834,8 @@ public class AccountController {
                 AccountModel accountModel = new AccountModel();
 		String name = this.title + " " + this.fname + " " + this.lname;
                 accountModel.updateDetails(name, this.age,this.gender,this.maritalstatus,this.bloodgroup,this.nationality,this.address,this.uid,this.allergies,this.susername,this.spass,this.semail,this.sphone);
-				
+                FacesContext.getCurrentInstance().addMessage(null,
+		                 new FacesMessage("Details Saved!"));
 		
 	}
 	
@@ -957,6 +958,8 @@ public class AccountController {
 	                
 		 DocAccountModel accountModel = new DocAccountModel();
                  accountModel.updateDetailsdoc(this.fname, this.age,this.gender,this.address,this.susername,this.semail,this.sphone,this.account.getUsername());
+                 FacesContext.getCurrentInstance().addMessage(null,
+		                 new FacesMessage("Details Saved!"));
 		}
 	 
 	 public void submitreport()

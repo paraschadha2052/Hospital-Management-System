@@ -62,19 +62,34 @@ public class DocAccountController {
 	public String uname;
 	public String date;
 	public String gender;
-	
-
-
 	public ArrayList<String> deptlist;
-	
-	
+	public boolean show;
+	public String successmessage;
 	
 	/*
 	 * GETTERS AND SETTERS
 	 */
 	
+	
+	
 	public Account getAccount() {
 		return account;
+	}
+
+	public String getSuccessmessage() {
+		return successmessage;
+	}
+
+	public void setSuccessmessage(String successmessage) {
+		this.successmessage = successmessage;
+	}
+
+	public boolean isShow() {
+		return show;
+	}
+
+	public void setShow(boolean show) {
+		this.show = show;
 	}
 
 	public String getGender() {
@@ -244,6 +259,7 @@ public class DocAccountController {
 
 	public void addDoc()
 	{
+		this.show = false;
 		AccountModel accountModel = new AccountModel();
 		DocAccountModel docAccountModel = new DocAccountModel();
 		String pass1 = this.pass1;
@@ -337,11 +353,13 @@ public class DocAccountController {
 		        	 throw new RuntimeException(e);
 		         } 
 		         emptyPropeties();
-		         redirect("admin.xhtml");
+		         FacesContext.getCurrentInstance().addMessage(null,
+		                 new FacesMessage("Doctor Added Successfully "));
 			}
 			else
-			{
-				FacesContext.getCurrentInstance().addMessage("form:password", new FacesMessage("Passwords don't match", "Passwords don't match"));
+			{	
+				FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_INFO, "Passwords don't match",      null);
+
 			}
 		}
 	}
@@ -352,6 +370,7 @@ public class DocAccountController {
 		AccountModel accountModel = new AccountModel();
 		this.deptlist = accountModel.getDeptlist();
 		System.out.println(this.deptlist);
+		this.show = false;
 	}
         
         /*

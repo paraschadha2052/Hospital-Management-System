@@ -77,7 +77,7 @@ and open the template in the editor.
 
 
                 <div class="form-group">
-                        <h:inputText value = "#{AccountController.age}" class="form-control" a:placeholder="Age" required="true" requiredMessage="Age is required"></h:inputText>
+                        <h:inputText value = "#{AccountController.age}" class="form-control" a:placeholder="Age" required="true" requiredMessage="Age is required" validatorMessage="Age must be an integer between 1 - 99"><f:validateRegex pattern = "^(0?[1-9]|[1-9][0-9])$"/></h:inputText>
                 </div>
                 <div class="form-group">
                         <div class="row">
@@ -92,14 +92,14 @@ and open the template in the editor.
                         </div>
                 </div>
                 <div class="form-group">
-                        <h:inputText value = "#{AccountController.bloodgroup}" class="form-control" a:placeholder="Blood Group" required="true" requiredMessage="Blood group is required"></h:inputText>
+                        <h:inputText value = "#{AccountController.bloodgroup}" class="form-control" a:placeholder="Blood Group" required="true" requiredMessage="Blood group is required" validatorMessage="Blood Group is not valid"><f:validateRegex pattern="^(A|B|AB|O)[-+]$" /></h:inputText>
                 </div>
                 <div class="form-group">
                         <div class="row">
                                 <div class="col-sm-12">
                                         <h:selectOneMenu value = "#{AccountController.nationality}" class="form-control"> 
                                                 <f:selectItem itemValue = "Indian" itemLabel = "Indian" /> 
-                                                <f:selectItem itemValue = "Unmarried" itemLabel = "Unmarried" /> 
+                                                <f:selectItem itemValue = "Swiss" itemLabel = "Swiss" /> 
                                                 <f:selectItem itemValue = "Indonesian" itemLabel = "Indonesian" /> 
                                                 <f:selectItem itemValue = "Japanese" itemLabel = "Japanese" /> 
                                         </h:selectOneMenu>
@@ -110,7 +110,7 @@ and open the template in the editor.
                         <h:inputText value = "#{AccountController.address}" class="form-control" a:placeholder="Address" required="true" requiredMessage="Address is required"></h:inputText>
                 </div>
                 <div class="form-group">
-                        <h:inputText value = "#{AccountController.uid}" class="form-control" a:placeholder="UID number" required="true" requiredMessage="UID is required"></h:inputText>
+                        <h:inputText value = "#{AccountController.uid}" class="form-control" a:placeholder="UID number" required="true" requiredMessage="UID is required" a:maxlength="12" validatorMessage="UID is not valid"><f:validateRegex pattern="^[0-9]{12}$" /></h:inputText>
                 </div>
                 <div class="form-group">
                         <h:inputText value = "#{AccountController.allergies}" class="form-control" a:placeholder="Allergies (optional)"></h:inputText>
@@ -133,10 +133,10 @@ and open the template in the editor.
                 </div>
                 <div>
 		<center>
-		<div style="color:red" id="error2">
-			#{AccountController.errorMessage2}
-			<h:messages style="color:red;" /> 
-		</div>
+		<div id="error2">
+											#{AccountController.errorMessage2}
+											<h:messages infoStyle="color:darkgreen" errorStyle="color:darkred"/> 
+										</div>
 		</center>
 	</div>
             </h:form>

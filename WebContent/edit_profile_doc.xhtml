@@ -69,7 +69,7 @@ and open the template in the editor.
 
 
                 <div class="form-group">
-                        <h:inputText value = "#{AccountController.age}" class="form-control" a:placeholder="Age" required="true" requiredMessage="Age is required"></h:inputText>
+                        <h:inputText value = "#{AccountController.age}" class="form-control" a:placeholder="Age" required="true" requiredMessage="Age is required" validatorMessage="Age must be an integer between 1 - 99"><f:validateRegex pattern = "^(0?[1-9]|[1-9][0-9])$"/></h:inputText>
                 </div>
                 
                
@@ -95,10 +95,10 @@ and open the template in the editor.
                 </div>
                 <div>
 		<center>
-		<div style="color:red" id="error2">
-			#{AccountController.errorMessage2}
-			<h:messages style="color:red;" /> 
-		</div>
+		<div id="error2">
+											#{AccountController.errorMessage2}
+											<h:messages infoStyle="color:darkgreen" errorStyle="color:darkred"/> 
+										</div>
 		</center>
 	</div>
             </h:form>
