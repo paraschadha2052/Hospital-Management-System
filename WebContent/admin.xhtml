@@ -148,7 +148,7 @@
 											<span class="input-group-addon">
                                               	 +91
                                            	</span>
-											<h:inputText value = "#{DocAccountController.contact}" class="form-control" a:placeholder="Mobile" required="true" requiredMessage="Mobile number is required" validatorMessage="Mobile number is not valid" a:maxlength="10"><f:validateRegex pattern="^[1-9]{10}$" /></h:inputText>
+											<h:inputText value = "#{DocAccountController.contact}" class="form-control" a:placeholder="Mobile" required="true" requiredMessage="Mobile number is required" validatorMessage="Mobile number is not valid" a:maxlength="10"><f:validateRegex pattern="^[1-9][0-9]{9}$" /></h:inputText>
 										</div>
 									</div>
 									
