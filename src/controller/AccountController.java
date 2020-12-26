@@ -21,6 +21,7 @@ import java.util.Base64;
 import java.util.Properties;
 import javax.servlet.http.Part;
 import javax.mail.Session;
+import javax.servlet.http.Part;
 import javax.mail.PasswordAuthentication;
 import javax.mail.Transport;
 import javax.mail.Message;
